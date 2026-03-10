@@ -91,22 +91,35 @@ class SemanticBrowserRuntime:
         prefer_non_blank: bool = True,
     ):
         del profile_registry
+        if "/devtools/page/" in endpoint:
+            raise AttachmentError(
+                "CDP attach expects a browser websocket endpoint (/devtools/browser/...), "
+                "not a page websocket endpoint (/devtools/page/...)."
+            )
         try:
             from playwright.async_api import async_playwright
         except Exception as exc:
             raise AttachmentError("Playwright is required for CDP attach.") from exc
         pw = await async_playwright().start()
-        browser = await pw.chromium.connect_over_cdp(endpoint)
-        context = browser.contexts[0] if browser.contexts else await browser.new_context()
-        page = cls._select_page(
-            context.pages,
-            target_url_contains=target_url_contains,
-            page_index=page_index,
-            prefer_non_blank=prefer_non_blank,
-        )
-        if page is None:
-            page = await context.new_page()
-        return cls(page=page, config=config, managed=True, manager={"pw": pw, "browser": browser})
+        try:
+            browser = await pw.chromium.connect_over_cdp(endpoint)
+            contexts = list(browser.contexts)
+            context = contexts[0] if contexts else await browser.new_context()
+            page = cls._select_page(
+                context.pages,
+                target_url_contains=target_url_contains,
+                page_index=page_index,
+                prefer_non_blank=prefer_non_blank,
+            )
+            if page is None:
+                page = await context.new_page()
+            return cls(page=page, config=config, managed=True, manager={"pw": pw, "browser": browser})
+        except Exception as exc:
+            try:
+                await pw.stop()
+            finally:
+                pass
+            raise AttachmentError(f"Failed CDP attach at {endpoint}: {exc}") from exc
 
     @property
     def session_id(self) -> str:

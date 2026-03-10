@@ -140,6 +140,9 @@ When attaching to an already-running Chrome, use the **browser-level** websocket
 - ✅ `ws://.../devtools/browser/<id>`
 - ❌ `ws://.../devtools/page/<id>`
 
+If you pass a page websocket, runtime now raises a clear `AttachmentError`
+explaining that a browser websocket is required.
+
 You can also hint which tab to bind:
 
 ```python
