@@ -29,7 +29,9 @@ pip-wheel-metadata/
 
 # Runtime traces and local outputs
 *.trace.json
+*-trace.json
 dogfood-trace.json
 porthole-validation-trace.json
 trace-*.json
 *.log
+corpus-report.json

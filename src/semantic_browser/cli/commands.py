@@ -6,6 +6,7 @@ import asyncio
 import json
 import subprocess
 import sys
+from pathlib import Path
 
 import click
 
@@ -90,6 +91,51 @@ def navigate_cmd(session_id: str, url: str, json_output: bool):
     async def _run():
         runtime = _runtime_for(session_id)
         return (await runtime.navigate(url)).model_dump(mode="json")
+
+    _emit(asyncio.run(_run()), as_json=json_output)
+
+
+@click.command("back")
+@click.option("--session", "session_id", required=True)
+@click.option("--json-output", is_flag=True, default=False)
+def back_cmd(session_id: str, json_output: bool):
+    async def _run():
+        runtime = _runtime_for(session_id)
+        return (await runtime.back()).model_dump(mode="json")
+
+    _emit(asyncio.run(_run()), as_json=json_output)
+
+
+@click.command("forward")
+@click.option("--session", "session_id", required=True)
+@click.option("--json-output", is_flag=True, default=False)
+def forward_cmd(session_id: str, json_output: bool):
+    async def _run():
+        runtime = _runtime_for(session_id)
+        return (await runtime.forward()).model_dump(mode="json")
+
+    _emit(asyncio.run(_run()), as_json=json_output)
+
+
+@click.command("reload")
+@click.option("--session", "session_id", required=True)
+@click.option("--json-output", is_flag=True, default=False)
+def reload_cmd(session_id: str, json_output: bool):
+    async def _run():
+        runtime = _runtime_for(session_id)
+        return (await runtime.reload()).model_dump(mode="json")
+
+    _emit(asyncio.run(_run()), as_json=json_output)
+
+
+@click.command("wait")
+@click.option("--session", "session_id", required=True)
+@click.option("--ms", default=500, type=int)
+@click.option("--json-output", is_flag=True, default=False)
+def wait_cmd(session_id: str, ms: int, json_output: bool):
+    async def _run():
+        runtime = _runtime_for(session_id)
+        return (await runtime.act(ActionRequest(op="wait", value=ms))).model_dump(mode="json")
 
     _emit(asyncio.run(_run()), as_json=json_output)
 
@@ -218,3 +264,32 @@ def portal_cmd(url: str, headful: bool):
         await session.close()
 
     asyncio.run(_run())
+
+
+@click.command("serve")
+@click.option("--host", default="127.0.0.1")
+@click.option("--port", default=8765, type=int)
+def serve_cmd(host: str, port: int):
+    """Run local HTTP service."""
+    try:
+        import uvicorn
+    except Exception as exc:
+        raise click.ClickException("Install semantic-browser[server] to run service.") from exc
+    uvicorn.run("semantic_browser.service.server:create_app", host=host, port=port, factory=True)
+
+
+@click.command("eval-corpus")
+@click.option("--config", "config_path", default="corpus/sites.yaml")
+@click.option("--headful/--headless", default=False)
+@click.option("--out", "out_path", default="corpus-report.json")
+def eval_corpus_cmd(config_path: str, headful: bool, out_path: str):
+    """Run corpus evaluation and write JSON report."""
+
+    async def _run():
+        from semantic_browser.corpus.runner import run_corpus
+
+        report = await run_corpus(config_path=config_path, headful=headful)
+        Path(out_path).write_text(json.dumps(report, indent=2, default=str), encoding="utf-8")
+        return {"out": out_path, "sites": report.get("site_count", 0)}
+
+    _emit(asyncio.run(_run()), as_json=True)

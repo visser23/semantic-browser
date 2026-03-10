@@ -11,6 +11,10 @@ class LaunchRequest(BaseModel):
     headful: bool = True
 
 
+class AttachRequest(BaseModel):
+    cdp_endpoint: str
+
+
 class ObserveRequest(BaseModel):
     mode: str = "summary"
 

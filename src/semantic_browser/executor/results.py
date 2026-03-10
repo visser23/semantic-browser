@@ -6,13 +6,16 @@ from semantic_browser.models import ExecutionResult, Observation, ObservationDel
 
 
 def classify_status(ok: bool, message: str, delta: ObservationDelta) -> StepStatus:
+    msg = (message or "").lower()
     if not ok:
         return "failed"
+    if msg in {"waited", "went back", "went forward", "reloaded", "navigated"}:
+        return "success"
     if delta.added_blockers:
         return "blocked"
     if delta.navigated or delta.changed_values or delta.changed_regions:
         return "success"
-    if "not found" in message.lower():
+    if "not found" in msg:
         return "stale"
     return "ambiguous"
 

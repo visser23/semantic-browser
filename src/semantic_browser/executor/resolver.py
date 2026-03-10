@@ -10,14 +10,14 @@ async def resolve_locator(page, action: ActionDescriptor):
     name = (recipe.get("name") or "").strip()
     role = (recipe.get("role") or "").strip()
     tag = (recipe.get("tag") or "").strip()
-    if role in {"button", "link", "textbox", "checkbox"} and name:
+    if role in {"button", "link", "textbox", "checkbox", "combobox", "searchbox"} and name:
         try:
-            return page.get_by_role(role, name=name)
+            return page.get_by_role(role, name=name).first
         except Exception:
             pass
     if tag in {"input", "textarea", "select"} and name:
         try:
-            return page.get_by_label(name)
+            return page.get_by_label(name).first
         except Exception:
             pass
     if name:

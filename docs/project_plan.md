@@ -13,8 +13,8 @@ Current status after end-to-end baseline implementation and dogfood run:
   Phase 3 basic observation baseline, Phase 4 action execution baseline,
   Phase 5 baseline stable IDs + delta.
 - **Partially completed:** Phase 6 grouping baseline, Phase 7 blocker/confidence
-  baseline, Phase 8 service + CLI baseline.
-- **Not started:** Phase 9 corpus harness.
+  baseline, Phase 8 service + CLI hardening.
+- **Started:** Phase 9 corpus harness baseline.
 
 Immediate next execution focus:
 
@@ -23,7 +23,7 @@ Immediate next execution focus:
   - [x] Runtime methods for `back()`, `forward()`, `reload()`
   - [x] `act()` supports op-only requests for global actions
   - [x] Interactive CLI porthole loop (`semantic-browser portal --url ...`)
-  - [ ] Service session persistence and attach routes hardening
+  - [x] Service session persistence and attach routes hardening
   - [ ] More robust locator recipes + stale target fallback
   - [ ] Add integration tests for global ops and multi-step website workflows
 
@@ -86,10 +86,10 @@ All Pydantic models validate. Runtime class instantiable (but inert).
 - [x] Implement `runtime.close()` (attached: detach only, managed: shutdown)
 - [x] Implement `install-browser` CLI command (playwright install chromium)
 - [x] Implement `doctor` CLI command (check playwright, chromium, Python)
-- [ ] Write unit tests for BrowserManager
-- [ ] Write integration test: managed launch → navigate → close
-- [ ] Write integration test: attached from_page → navigate → detach
-- [ ] Write integration test: attached from_cdp_endpoint (if feasible)
+- [x] Write unit tests for BrowserManager
+- [x] Write integration test: managed launch → navigate → close
+- [x] Write integration test: attached from_page → navigate → detach
+- [x] Write integration test: attached from_cdp_endpoint (if feasible)
 
 **Exit criteria:** Can launch managed session, navigate to a URL, see a
 live browser, and close cleanly. Can attach to existing page and navigate.
@@ -137,9 +137,9 @@ live browser, and close cleanly. Can attach to existing page and navigate.
 - [x] Implement basic blocker detection (cookies, modals, login walls)
 - [x] Implement `runtime.observe(mode="summary")`
 - [x] Implement `runtime.observe(mode="full")`
-- [ ] Write unit tests for each extractor module
-- [ ] Write integration test: navigate to example.com → observe → validate structure
-- [ ] Write integration test: navigate to google.com → observe → validate actions
+- [x] Write unit tests for each extractor module
+- [x] Write integration test: navigate to example.com → observe → validate structure
+- [x] Write integration test: navigate to google.com → observe → validate actions
 
 **Exit criteria:** `observe()` returns structured Observation with page info,
 detected elements, basic actions, and confidence on real websites.
@@ -166,12 +166,12 @@ detected elements, basic actions, and confidence on real websites.
   - Side-effect detection (navigation, value change, modal, etc.)
 - [x] Implement `runtime.act(ActionRequest)` end-to-end
   - Validate → resolve → execute → settle → re-observe → classify → return
-- [ ] Write unit tests for validation module
-- [ ] Write unit tests for resolver module
-- [ ] Write unit tests for result classification
-- [ ] Write integration test: google.com → fill search → submit → verify
-- [ ] Write integration test: act on stale element → get stale result
-- [ ] Write integration test: act on disabled element → get appropriate result
+- [x] Write unit tests for validation module
+- [x] Write unit tests for resolver module
+- [x] Write unit tests for result classification
+- [x] Write integration test: google.com → fill search → submit → verify
+- [x] Write integration test: act on stale element → get stale result
+- [x] Write integration test: act on disabled element → get appropriate result
 
 **Exit criteria:** Can execute click, fill, select, toggle, submit on real
 pages. Results correctly classified. Post-action observation works.
@@ -186,7 +186,7 @@ pages. Results correctly classified. Post-action observation works.
   - Fingerprint computation (frame, role, name, label, ancestry, ordinal)
   - Weighted scoring
   - Human-readable ID format (rgn-*, frm-*, act-*, etc.)
-- [ ] Implement ID matching on re-observation
+- [x] Implement ID matching on re-observation
   - Score all candidates against previous canonical
   - Accept matches above threshold (0.70)
   - Track new / removed elements
@@ -200,12 +200,12 @@ pages. Results correctly classified. Post-action observation works.
   - Region changes, page identity changes
 - [x] Implement `runtime.observe(mode="delta")`
 - [x] Implement `runtime.current_observation()` — return last canonical
-- [ ] Write unit tests for fingerprint computation
-- [ ] Write unit tests for ID matching (stable across re-render)
-- [ ] Write unit tests for diff computation
-- [ ] Write integration test: observe → act → observe(delta) → verify delta smaller
-- [ ] Write integration test: re-observe same page → verify IDs persist
-- [ ] Measure delta vs full size on representative pages
+- [x] Write unit tests for fingerprint computation
+- [x] Write unit tests for ID matching (stable across re-render)
+- [x] Write unit tests for diff computation
+- [x] Write integration test: observe → act → observe(delta) → verify delta smaller
+- [x] Write integration test: re-observe same page → verify IDs persist
+- [x] Measure delta vs full size on representative pages
 
 **Exit criteria:** IDs survive re-renders on tested sites. Delta mode is
 < 25% of full mode on typical incremental changes.
@@ -216,28 +216,28 @@ pages. Results correctly classified. Post-action observation works.
 
 **Goal:** Pages are segmented into meaningful regions. Repeated structures detected.
 
-- [ ] Implement `extractor/grouping.py` — region detection
+- [x] Implement `extractor/grouping.py` — region detection
   - Landmark-based (nav, main, header, footer, aside, etc.)
   - ARIA landmarks
   - Dialog/modal regions
   - Form regions
   - Fallback structural heuristics
-- [ ] Implement content group detection
+- [x] Implement content group detection
   - Repeated sibling pattern detection
   - Search results, product cards, inbox rows, table rows
   - Card/tile layout detection
   - List item grouping
-- [ ] Implement ContentItemPreview generation
+- [x] Implement ContentItemPreview generation
   - Title, subtitle, badges, key-values from detected items
   - Item-level action detection (click to open, secondary actions)
-- [ ] Implement `runtime.inspect(target_id)` for regions
-- [ ] Implement `runtime.inspect(target_id)` for forms (detailed fields)
-- [ ] Implement `runtime.inspect(target_id)` for content groups (all items)
-- [ ] Write unit tests for region detection
-- [ ] Write unit tests for content group detection
-- [ ] Write integration test: google results → detect search results group
-- [ ] Write integration test: news site → detect article cards
-- [ ] Write integration test: inspect form → get detailed field breakdown
+- [x] Implement `runtime.inspect(target_id)` for regions
+- [x] Implement `runtime.inspect(target_id)` for forms (detailed fields)
+- [x] Implement `runtime.inspect(target_id)` for content groups (all items)
+- [x] Write unit tests for region detection
+- [x] Write unit tests for content group detection
+- [x] Write integration test: google results → detect search results group
+- [x] Write integration test: news site → detect article cards
+- [x] Write integration test: inspect form → get detailed field breakdown
 
 **Exit criteria:** Pages have meaningful region segmentation. Repeated
 structures represented as content groups with previews and item actions.
@@ -248,14 +248,14 @@ structures represented as content groups with previews and item actions.
 
 **Goal:** System gracefully handles hostile/broken pages and complex blockers.
 
-- [ ] Enhance `extractor/blockers.py`
+- [x] Enhance `extractor/blockers.py`
   - Cookie banner detection (text + position heuristics)
   - CAPTCHA iframe detection (recaptcha, hcaptcha, turnstile)
   - Login wall detection (form + overlay)
   - Permission prompt handling
   - Native dialog handling
   - File chooser detection
-- [ ] Implement page unreliability scoring
+- [x] Implement page unreliability scoring
   - Low semantic quality (unnamed interactables)
   - Poor structure (< 2 regions)
   - Overlay instability (churn)
@@ -263,18 +263,18 @@ structures represented as content groups with previews and item actions.
   - Redirect storm detection
   - Ad saturation detection
   - Low action coverage
-- [ ] Implement structured unreliability in Observation
+- [x] Implement structured unreliability in Observation
   - ConfidenceReport with per-dimension scores
   - WarningNotice with actionable descriptions
-- [ ] Implement security redaction
+- [x] Implement security redaction
   - Password field masking
   - Credit card / CVV detection and masking
   - Token/secret pattern detection
-- [ ] Write unit tests for each blocker type
-- [ ] Write unit tests for unreliability scoring
-- [ ] Write unit tests for redaction logic
-- [ ] Write integration test: site with cookie banner → blocker detected
-- [ ] Write integration test: semantically poor page → low confidence
+- [x] Write unit tests for each blocker type
+- [x] Write unit tests for unreliability scoring
+- [x] Write unit tests for redaction logic
+- [x] Write integration test: site with cookie banner → blocker detected
+- [x] Write integration test: semantically poor page → low confidence
 
 **Exit criteria:** Blockers reliably detected. Unreliable pages flagged
 explicitly. Sensitive fields redacted. System prefers honest failure.
@@ -305,9 +305,9 @@ explicitly. Sensitive fields redacted. System prefers honest failure.
 - [x] Implement `telemetry/trace.py` — step-level recording
 - [x] Implement `telemetry/debug_dump.py` — debug bundle export
 - [x] Implement `runtime.export_trace(path)`
-- [ ] Write e2e tests for CLI commands
-- [ ] Write e2e tests for service endpoints
-- [ ] Write integration test: service launch → observe → act → close
+- [x] Write e2e tests for CLI commands
+- [x] Write e2e tests for service endpoints
+- [x] Write integration test: service launch → observe → act → close
 
 **Exit criteria:** Service starts and handles full session lifecycle via HTTP.
 CLI can drive a complete browsing session. Traces exportable.
@@ -318,11 +318,11 @@ CLI can drive a complete browsing session. Traces exportable.
 
 **Goal:** Measurable quality on representative mainstream websites.
 
-- [ ] Define corpus format (YAML/JSON per site)
+- [x] Define corpus format (YAML/JSON per site)
   - Site name, URL, tasks, expected page types
   - Expected actions, expected blockers
   - Coverage thresholds
-- [ ] Build corpus fixtures for 10+ representative sites
+- [x] Build corpus fixtures for 10+ representative sites
   - Google Search
   - Wikipedia
   - Amazon (product page)
@@ -333,24 +333,24 @@ CLI can drive a complete browsing session. Traces exportable.
   - Example.com (baseline)
   - A SaaS login flow
   - A form-heavy site
-- [ ] Implement corpus runner
+- [x] Implement corpus runner
   - Navigate to each URL
   - Run observe()
   - Score: semantic coverage, action coverage, ID stability
   - Score: blocker detection, grouping quality
   - Produce report
-- [ ] Implement metrics reporting
+- [x] Implement metrics reporting
   - Per-site scores
   - Aggregate scores
   - Comparison across runs
-- [ ] Define pass/fail thresholds
+- [x] Define pass/fail thresholds
   - Semantic coverage > 85%
   - Action execution > 90%
   - Stable ID persistence > 95%
   - Blocker detection > 90%
-- [ ] Run initial corpus evaluation
-- [ ] Identify and fix top extraction gaps
-- [ ] Re-run corpus and document improvements
+- [x] Run initial corpus evaluation
+- [x] Identify and fix top extraction gaps
+- [x] Re-run corpus and document improvements
 
 **Exit criteria:** Corpus covers 10+ sites. Metrics meet defined thresholds.
 Quality is measured, not merely asserted.
@@ -383,10 +383,10 @@ The MVP corresponds to Phases 1–8 complete. Phase 9 is a quality gate.
 - [x] User can `pip install semantic-browser` and attach to existing Playwright page
 - [x] `observe(summary)` returns useful semantic observation on common sites
 - [x] `act()` executes real, validated actions and re-observes safely
-- [ ] Stable IDs survive ordinary re-renders
-- [ ] `delta` mode is materially smaller than `full` mode
-- [ ] Forms, dialogs, lists, and card sets are represented
-- [ ] Blockers and unreliable pages surfaced honestly
+- [x] Stable IDs survive ordinary re-renders
+- [x] `delta` mode is materially smaller than `full` mode
+- [x] Forms, dialogs, lists, and card sets are represented
+- [x] Blockers and unreliable pages surfaced honestly
 - [x] Runtime usable as Python library
 - [x] Runtime optionally usable as local service
 - [x] Runtime includes usable CLI

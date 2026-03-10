@@ -1,0 +1,44 @@
+- site: example
+  url: https://example.com
+  expected_page_types: [generic, article, table]
+  min_actions: 1
+- site: iana-example-domains
+  url: https://www.iana.org/help/example-domains
+  expected_page_types: [article, table, generic]
+  min_actions: 5
+- site: wikipedia-main
+  url: https://www.wikipedia.org
+  expected_page_types: [generic, form, navigation-heavy]
+  min_actions: 5
+- site: github-home
+  url: https://github.com
+  expected_page_types: [generic, navigation-heavy, form]
+  min_actions: 5
+- site: stackoverflow-home
+  url: https://stackoverflow.com
+  expected_page_types: [generic, form, navigation-heavy]
+  min_actions: 5
+- site: bbc-home
+  url: https://www.bbc.com
+  expected_page_types: [article, generic, navigation-heavy]
+  min_actions: 5
+- site: hackernews
+  url: https://news.ycombinator.com
+  expected_page_types: [table, generic]
+  min_actions: 5
+- site: python-docs
+  url: https://docs.python.org/3/
+  expected_page_types: [article, generic, navigation-heavy]
+  min_actions: 5
+- site: npm-home
+  url: https://www.npmjs.com
+  expected_page_types: [generic, form, navigation-heavy]
+  min_actions: 5
+- site: mozilla-home
+  url: https://www.mozilla.org
+  expected_page_types: [generic, article]
+  min_actions: 3
+- site: openai-home
+  url: https://openai.com
+  expected_page_types: [generic, article]
+  min_actions: 3

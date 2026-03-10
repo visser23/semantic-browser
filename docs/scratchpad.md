@@ -63,6 +63,68 @@
   - observed delta with page identity change to IANA page
   - exported trace bundle to `dogfood-trace.json`
 
+### 2026-03-10 — Service + Corpus Hardening
+
+- Added `.gitignore` with Python/build/runtime artifact exclusions
+- Added service session registry (`service/state.py`) and attach route
+  (`POST /sessions/attach`)
+- Added service operation routes for `back`, `forward`, `reload`
+- Added CORS middleware to FastAPI app factory
+- Added corpus harness baseline:
+  - fixture loader (`corpus/fixtures.py`)
+  - site scoring and aggregate metrics (`corpus/metrics.py`)
+  - site task execution (`corpus/tasks.py`)
+  - runner entrypoint (`corpus/runner.py`)
+  - starter config (`corpus/sites.yaml`)
+- Added CLI commands:
+  - `serve`
+  - `eval-corpus`
+  - non-portal navigation helpers (`back`, `forward`, `reload`, `wait`)
+- Added security redaction baseline (`extractor/redaction.py`)
+- Expanded tests to 17 passing:
+  - service e2e route test
+  - validation/results tests
+  - redaction tests
+  - corpus metrics tests
+
+### 2026-03-10 — Coverage Completion + Corpus Re-run
+
+- Removed tracked `__pycache__` artifacts from repo paths and enforced ignore
+- Added integration coverage for:
+  - example and google observations
+  - google fill/submit workflow
+  - stale and disabled action edge cases
+  - ID persistence across re-observation
+  - delta/full ratio checks on representative pages
+  - grouping and inspect details on live sites
+  - cookie banner and semantically poor page heuristics (fixture pages)
+- Added skipped CDP feasibility integration test scaffold (requires external CDP browser)
+- Added additional extractor/unit coverage (browser manager, resolver, grouping, blockers)
+- Improved runtime action robustness:
+  - `runtime.act()` now returns structured `invalid`/`stale`/`failed` results instead of raising
+  - locator resolution uses `.first` and includes `combobox`/`searchbox` roles
+  - wait/back/forward/reload now classify as success outcomes
+- Re-ran corpus on expanded 11-site fixture list:
+  - `site_count`: 11
+  - `pass_rate`: 0.8182
+  - `avg_score`: 0.9091
+  - misses were mostly page-type classifier mismatches (python docs + mozilla home)
+- Test suite now: 48 passed, 1 skipped
+
+### 2026-03-10 — External Docs + Cursor LLM Proof
+
+- Rewrote `README.md` for first-time users with plain-language intro and
+  copy/paste setup instructions.
+- Added `docs/getting_started.md` with zero-guesswork install/run guide.
+- Added `docs/dependencies.md` with explicit dependency matrix and mode mapping.
+- Ran fresh LLM-style proof loop from inside Cursor via Python runtime calls:
+  - navigate -> observe -> choose action -> act -> delta -> back/forward/reload
+  - exported proof trace: `llm-cursor-proof-trace.json`
+- Proof metrics from run:
+  - initial actions: 6
+  - post-action page transition: `example.com` -> IANA page
+  - delta bytes: 208 vs full bytes: 14349
+
 ## Lessons
 
 - Trace export must serialize datetimes using `default=str`; otherwise JSON export

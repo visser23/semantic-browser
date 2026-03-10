@@ -21,6 +21,7 @@ from .dom_snapshot import capture_dom_stats
 from .grouping import build_content_groups, build_forms, build_regions
 from .ids import assign_node_ids, fingerprint_for
 from .page_state import capture_page_info
+from .redaction import redact_nodes
 from .semantics import extract_semantics
 
 
@@ -70,7 +71,7 @@ async def observe_page(
 ) -> tuple[Observation, dict[str, str]]:
     start = time.perf_counter()
     sem = await extract_semantics(page)
-    nodes = sem.get("nodes", [])
+    nodes = redact_nodes(sem.get("nodes", []), config.redaction)
     id_map = assign_node_ids(nodes, previous=previous_ids)
     page_info = await capture_page_info(page)
     page_info.page_type = classify_page(nodes)

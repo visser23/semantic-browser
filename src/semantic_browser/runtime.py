@@ -7,7 +7,7 @@ import uuid
 from typing import Any
 
 from semantic_browser.config import RuntimeConfig
-from semantic_browser.errors import AttachmentError, BrowserNotReadyError
+from semantic_browser.errors import ActionExecutionError, ActionNotFoundError, ActionStaleError, AttachmentError, BrowserNotReadyError
 from semantic_browser.executor.actions import execute_action
 from semantic_browser.executor.results import build_execution, classify_status
 from semantic_browser.executor.validation import resolve_action
@@ -106,9 +106,41 @@ class SemanticBrowserRuntime:
 
     async def act(self, request: ActionRequest) -> StepResult:
         obs_before = self._current_observation or await self.observe(mode="summary")
-        action = resolve_action(request, obs_before)
+        try:
+            action = resolve_action(request, obs_before)
+        except ActionStaleError as exc:
+            execution = build_execution(request.op or "unknown", False, str(exc), obs_before)
+            return StepResult(
+                request=request,
+                status="stale",
+                message=str(exc),
+                execution=execution,
+                observation=obs_before,
+                delta=build_delta(obs_before, obs_before),
+            )
+        except ActionNotFoundError as exc:
+            execution = build_execution(request.op or "unknown", False, str(exc), obs_before)
+            return StepResult(
+                request=request,
+                status="invalid",
+                message=str(exc),
+                execution=execution,
+                observation=obs_before,
+                delta=build_delta(obs_before, obs_before),
+            )
         self._trace.add("action_request", request.model_dump())
-        ok, message = await execute_action(self._page, action, request)
+        try:
+            ok, message = await execute_action(self._page, action, request)
+        except ActionExecutionError as exc:
+            execution = build_execution(action.op, False, str(exc), obs_before)
+            return StepResult(
+                request=request,
+                status="failed",
+                message=str(exc),
+                execution=execution,
+                observation=obs_before,
+                delta=build_delta(obs_before, obs_before),
+            )
         await wait_for_settle(self._page, self._config.settle)
         obs_after = await self.observe(mode="delta")
         delta = build_delta(obs_before, obs_after)

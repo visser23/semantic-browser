@@ -4,28 +4,42 @@ from __future__ import annotations
 
 from fastapi import APIRouter, HTTPException
 
-from semantic_browser.models import ActionRequest
+from semantic_browser.runtime import SemanticBrowserRuntime
+from semantic_browser.service.schemas import (
+    ActRequest,
+    AttachRequest,
+    InspectRequest,
+    LaunchRequest,
+    NavigateRequest,
+    ObserveRequest,
+)
+from semantic_browser.service.state import SessionRegistry
 from semantic_browser.session import ManagedSession
-from semantic_browser.service.schemas import ActRequest, InspectRequest, LaunchRequest, NavigateRequest, ObserveRequest
 
 router = APIRouter()
-_sessions: dict[str, ManagedSession] = {}
+_registry = SessionRegistry()
 
 
 @router.post("/sessions/launch")
 async def launch_session(req: LaunchRequest):
     session = await ManagedSession.launch(headful=req.headful)
-    sid = session.runtime.session_id
-    _sessions[sid] = session
+    sid = _registry.add_managed(session)
+    return {"session_id": sid, "mode": "managed"}
+
+
+@router.post("/sessions/attach")
+async def attach_session(req: AttachRequest):
+    runtime = await SemanticBrowserRuntime.from_cdp_endpoint(req.cdp_endpoint)
+    sid = _registry.add_runtime(runtime)
     return {"session_id": sid}
 
 
 @router.post("/sessions/{session_id}/close")
 async def close_session(session_id: str):
-    session = _sessions.pop(session_id, None)
-    if not session:
+    handle = _registry.pop(session_id)
+    if not handle:
         raise HTTPException(status_code=404, detail="session not found")
-    await session.close()
+    await handle.close()
     return {"ok": True}
 
 
@@ -56,6 +70,27 @@ async def act(session_id: str, req: ActRequest):
     return result.model_dump(mode="json")
 
 
+@router.post("/sessions/{session_id}/back")
+async def back(session_id: str):
+    runtime = _get_runtime(session_id)
+    result = await runtime.back()
+    return result.model_dump(mode="json")
+
+
+@router.post("/sessions/{session_id}/forward")
+async def forward(session_id: str):
+    runtime = _get_runtime(session_id)
+    result = await runtime.forward()
+    return result.model_dump(mode="json")
+
+
+@router.post("/sessions/{session_id}/reload")
+async def reload(session_id: str):
+    runtime = _get_runtime(session_id)
+    result = await runtime.reload()
+    return result.model_dump(mode="json")
+
+
 @router.get("/sessions/{session_id}/diagnostics")
 async def diagnostics(session_id: str):
     runtime = _get_runtime(session_id)
@@ -70,7 +105,7 @@ async def export_trace(session_id: str):
 
 
 def _get_runtime(session_id: str):
-    session = _sessions.get(session_id)
-    if not session:
+    handle = _registry.get(session_id)
+    if not handle:
         raise HTTPException(status_code=404, detail="session not found")
-    return session.runtime
+    return handle.runtime

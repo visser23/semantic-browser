@@ -13,6 +13,7 @@ authors = [{ name = "Matt Visser" }]
 dependencies = [
   "pydantic>=2.8.0",
   "click>=8.1.7",
+  "PyYAML>=6.0.2",
 ]
 
 [project.optional-dependencies]
