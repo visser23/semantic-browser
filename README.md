@@ -177,6 +177,14 @@ Auto routing mode:
   - weak/noisy ARIA => broader route (`semantic_full`)
 - route and quality are exposed in `observation.metrics` and summary key points.
 
+Planner control-panel view (BBC Micro loop style):
+- each observation now includes `observation.planner`:
+  - `location`: concise room/location line
+  - `what_you_see`: short capped bullet list
+  - `available_actions`: capped action list (`id`, `label`, `op`)
+  - `blockers`: active blocker hints
+- use this as the LLM-facing payload for low token-in turns; keep full observation internal for diagnostics/recovery.
+
 This keeps default observations leaner while allowing deterministic escalation to full context.
 
 ---

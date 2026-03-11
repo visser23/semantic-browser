@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import types
 
+import json
+
 import pytest
 
 from semantic_browser.models import ActionRequest
@@ -165,6 +167,18 @@ async def test_auto_mode_sets_route_and_quality_metrics():
     assert obs.metrics.aria_quality is not None
     assert obs.metrics.total_interactable_count is not None
     assert obs.metrics.scoped_interactable_count is not None
+
+
+@pytest.mark.asyncio
+async def test_planner_view_is_present_and_compact():
+    runtime = SemanticBrowserRuntime.from_page(DensePage())
+    obs = await runtime.observe("auto")
+    assert obs.planner is not None
+    assert obs.planner.location
+    assert len(obs.planner.available_actions) <= 30
+    planner_tokens = len(json.dumps(obs.planner.model_dump(), default=str))
+    full_tokens = len(json.dumps(obs.model_dump(), default=str))
+    assert planner_tokens < full_tokens
 
 
 @pytest.mark.asyncio

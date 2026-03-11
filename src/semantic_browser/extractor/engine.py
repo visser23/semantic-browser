@@ -12,6 +12,8 @@ from semantic_browser.models import (
     Observation,
     ObservationMetrics,
     PageSummary,
+    PlannerAction,
+    PlannerView,
 )
 
 from .blockers import confidence_from_nodes, detect_blockers
@@ -79,6 +81,23 @@ async def _nodes_for_mode(nodes: list[dict[str, Any]], page: Any, mode: str, con
         return nodes, False, "semantic_top", quality
     route = "aria_compact" if mode == "auto" and quality >= 0.75 else "semantic_top"
     return scoped, len(scoped) < len(nodes), route, quality
+
+
+def _build_planner_view(page_info: Any, summary: PageSummary, blockers: list[Any], actions: list[ActionDescriptor]) -> PlannerView:
+    room = f"You are on {page_info.title or page_info.domain} ({page_info.domain})"
+    what_you_see = [summary.headline] + list(summary.key_points[:7])
+    action_items = [
+        PlannerAction(id=a.id, label=a.label, op=a.op)
+        for a in actions
+        if a.enabled
+    ][:30]
+    blocker_text = [b.description for b in blockers[:5]]
+    return PlannerView(
+        location=room,
+        what_you_see=what_you_see,
+        available_actions=action_items,
+        blockers=blocker_text,
+    )
 
 
 def _action_for_node(node: dict[str, Any], node_id: str, idx: int) -> ActionDescriptor | None:
@@ -206,6 +225,7 @@ async def observe_page(
         key_points=key_points,
     )
     extraction_ms = int((time.perf_counter() - start) * 1000)
+    planner = _build_planner_view(page_info, summary, blockers, actions)
     obs = Observation(
         session_id=session_id,
         mode=mode,  # type: ignore[arg-type]
@@ -217,6 +237,7 @@ async def observe_page(
         forms=forms,
         content_groups=groups,
         available_actions=actions,
+        planner=planner,
         metrics=ObservationMetrics(
             extraction_ms=extraction_ms,
             action_count=len(actions),
