@@ -1,0 +1,595 @@
+{
+  "summary": {
+    "standard_browser_use": {
+      "task_success_rate": 0.75,
+      "stuck_rate": 0.25,
+      "speed_ms": {
+        "median": 2491.1,
+        "mean": 2511.3
+      },
+      "tok_in": {
+        "median": 268.0,
+        "mean": 1093.2
+      },
+      "tok_out": {
+        "median": 13.0,
+        "mean": 13.4
+      }
+    },
+    "openclaw_browser": {
+      "task_success_rate": 0.65,
+      "stuck_rate": 0.35,
+      "speed_ms": {
+        "median": 2557.9,
+        "mean": 4134.1
+      },
+      "tok_in": {
+        "median": 2644.0,
+        "mean": 10047.0
+      },
+      "tok_out": {
+        "median": 13.0,
+        "mean": 11.8
+      }
+    },
+    "semantic_browser": {
+      "task_success_rate": 0.5,
+      "stuck_rate": 0.5,
+      "speed_ms": {
+        "median": 3633.2,
+        "mean": 4514.9
+      },
+      "tok_in": {
+        "median": 920.0,
+        "mean": 1011.2
+      },
+      "tok_out": {
+        "median": 13.0,
+        "mean": 12.1
+      }
+    },
+    "task_count": 20
+  },
+  "tasks": [
+    {
+      "site": "amazon",
+      "url": "https://www.amazon.co.uk/",
+      "keyword": "search",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2693.9,
+        "tok_in": 4277,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 10528.6,
+        "tok_in": 36698,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 7689.4,
+        "tok_in": 944,
+        "tok_out": 15,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "amazon",
+      "url": "https://www.amazon.co.uk/",
+      "keyword": "account",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2453.1,
+        "tok_in": 4164,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2772.7,
+        "tok_in": 36959,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 3400.4,
+        "tok_in": 931,
+        "tok_out": 14,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "youtube",
+      "url": "https://www.youtube.com/",
+      "keyword": "search",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2490.4,
+        "tok_in": 66,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2496.7,
+        "tok_in": 1514,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 3196.5,
+        "tok_in": 550,
+        "tok_out": 14,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "youtube",
+      "url": "https://www.youtube.com/",
+      "keyword": "sign in",
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 2456.1,
+        "tok_in": 66,
+        "tok_out": 14
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 1679.0,
+        "tok_in": 1514,
+        "tok_out": 11
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 2694.6,
+        "tok_in": 1099,
+        "tok_out": 6,
+        "route": "semantic_full"
+      }
+    },
+    {
+      "site": "reddit",
+      "url": "https://www.reddit.com/",
+      "keyword": "search",
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 2491.8,
+        "tok_in": 612,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 1751.1,
+        "tok_in": 14842,
+        "tok_out": 11
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 2947.4,
+        "tok_in": 2086,
+        "tok_out": 6,
+        "route": "semantic_full"
+      }
+    },
+    {
+      "site": "reddit",
+      "url": "https://www.reddit.com/",
+      "keyword": "log in",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2459.7,
+        "tok_in": 663,
+        "tok_out": 14
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 1589.8,
+        "tok_in": 90,
+        "tok_out": 11
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 3904.9,
+        "tok_in": 1036,
+        "tok_out": 14,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "linkedin",
+      "url": "https://www.linkedin.com/feed/",
+      "keyword": "sign in",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2578.3,
+        "tok_in": 268,
+        "tok_out": 14
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2516.2,
+        "tok_in": 2560,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 3665.2,
+        "tok_in": 832,
+        "tok_out": 14,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "linkedin",
+      "url": "https://www.linkedin.com/feed/",
+      "keyword": "join",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2614.8,
+        "tok_in": 268,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2765.0,
+        "tok_in": 2560,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 6059.1,
+        "tok_in": 681,
+        "tok_out": 13,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "instagram",
+      "url": "https://www.instagram.com/",
+      "keyword": "log in",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2457.0,
+        "tok_in": 1877,
+        "tok_out": 14
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 1616.3,
+        "tok_in": 5324,
+        "tok_out": 11
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 7707.8,
+        "tok_in": 867,
+        "tok_out": 15,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "instagram",
+      "url": "https://www.instagram.com/",
+      "keyword": "sign up",
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 2418.2,
+        "tok_in": 21,
+        "tok_out": 14
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 1594.6,
+        "tok_in": 19,
+        "tok_out": 11
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 2986.8,
+        "tok_in": 1709,
+        "tok_out": 6,
+        "route": "semantic_full"
+      }
+    },
+    {
+      "site": "x",
+      "url": "https://x.com/home",
+      "keyword": "search",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2525.8,
+        "tok_in": 60,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2599.4,
+        "tok_in": 2728,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 6630.8,
+        "tok_in": 875,
+        "tok_out": 13,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "x",
+      "url": "https://x.com/home",
+      "keyword": "post",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2610.9,
+        "tok_in": 60,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2566.9,
+        "tok_in": 2728,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 3430.7,
+        "tok_in": 863,
+        "tok_out": 13,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "google_maps",
+      "url": "https://www.google.com/maps",
+      "keyword": "search",
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 2614.7,
+        "tok_in": 44,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2665.5,
+        "tok_in": 2420,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 3728.4,
+        "tok_in": 847,
+        "tok_out": 13,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "google_maps",
+      "url": "https://www.google.com/maps",
+      "keyword": "directions",
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 2496.8,
+        "tok_in": 164,
+        "tok_out": 14
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2548.8,
+        "tok_in": 2361,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 3601.3,
+        "tok_in": 847,
+        "tok_out": 13,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "notion",
+      "url": "https://www.notion.so/",
+      "keyword": "log in",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2542.4,
+        "tok_in": 32,
+        "tok_out": 14
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2801.9,
+        "tok_in": 468,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 3538.8,
+        "tok_in": 1512,
+        "tok_out": 6,
+        "route": "semantic_full"
+      }
+    },
+    {
+      "site": "notion",
+      "url": "https://www.notion.so/",
+      "keyword": "request a demo",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2506.0,
+        "tok_in": 32,
+        "tok_out": 15
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 7482.5,
+        "tok_in": 648,
+        "tok_out": 14,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "wikipedia",
+      "url": "https://www.wikipedia.org/",
+      "keyword": "search",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2464.5,
+        "tok_in": 1564,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2443.5,
+        "tok_in": 6103,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2563.2,
+        "tok_in": 1018,
+        "tok_out": 13,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "wikipedia",
+      "url": "https://www.wikipedia.org/",
+      "keyword": "english",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2413.0,
+        "tok_in": 1564,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2487.8,
+        "tok_in": 6103,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 3018.5,
+        "tok_in": 1039,
+        "tok_out": 13,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "bbc",
+      "url": "https://www.bbc.co.uk/",
+      "keyword": "news",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2471.8,
+        "tok_in": 3031,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2669.3,
+        "tok_in": 37976,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 5764.5,
+        "tok_in": 920,
+        "tok_out": 13,
+        "route": "aria_compact"
+      }
+    },
+    {
+      "site": "bbc",
+      "url": "https://www.bbc.co.uk/",
+      "keyword": "sport",
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2467.0,
+        "tok_in": 3031,
+        "tok_out": 13
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2588.8,
+        "tok_in": 37973,
+        "tok_out": 13
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 6286.3,
+        "tok_in": 920,
+        "tok_out": 14,
+        "route": "aria_compact"
+      }
+    }
+  ]
+}

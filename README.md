@@ -27,27 +27,28 @@ If your bot has ever clicked the wrong thing because a cookie banner sneezed, th
 
 ---
 
-## Comparative results (10 major sites, median)
+## Comparative results (10 major sites, 20 action tasks, median)
 
-Benchmark file: `work-output/comparative-analysis-10-sites-median.md`
+Benchmark files:
+- `docs/benchmarks/2026-03-11-actionset-compare.md`
+- `docs/benchmarks/2026-03-11-actionset-compare.json`
 
 Tested sites: Amazon, YouTube, Reddit, LinkedIn, Instagram, X, Google Maps, Notion, Wikipedia, BBC.
 
-| Method | Median speed (ms) | Median token-in | Median token-out | Median accuracy* |
-|---|---:|---:|---:|---:|
-| Standard browser use | 1208.3 | 2437.5 | 8.0 | 0.83 |
-| OpenClaw ARIA snapshot | 914.5 | 20651.5 | 8.0 | 1.0 |
-| **Semantic Browser (auto + planner)** | 2146.5 | **586.0** | **6.0** | **1.0** |
+| Method | Success rate | Stuck rate | Median speed (ms) | Median token-in | Median token-out |
+|---|---:|---:|---:|---:|---:|
+| Standard browser use | 0.75 | 0.25 | 2491.1 | 268.0 | 13.0 |
+| OpenClaw browser | 0.65 | 0.35 | 2557.9 | 2644.0 | 13.0 |
+| **Semantic Browser (auto + planner)** | 0.50 | 0.50 | 3633.2 | 920.0 | 13.0 |
 
-\*Accuracy here is a task-term hit-rate proxy, not a full end-to-end task success suite.
+### What this means (honest version)
 
-### What this means
+- This run is now **action-set based**, so it captures getting stuck, not just pretty snapshots.
+- **OpenClaw and standard** currently win on speed/success in this specific harness.
+- **Semantic Browser** still needs improvement on action matching/execution reliability.
+- Token-in remains controlled and predictable with the planner payload, but reliability is the next hill to climb.
 
-- **Token-in win is the headline**: planner payload is dramatically smaller.
-- **Accuracy stays high** on this proxy while using much less context.
-- **Speed is currently slower** than raw snapshots because we do semantic extraction and routing work.
-
-So yes: you spend a bit more compute time to save a lot of prompt budget and reduce model confusion. For agent loops, that trade often pays for itself fast.
+In other words: the architecture is right, but we need to finish the job on execution quality before claiming victory laps.
 
 ---
 

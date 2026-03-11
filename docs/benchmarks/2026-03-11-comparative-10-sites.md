@@ -10,11 +10,11 @@ Methods compared:
 
 | Method | Median speed (ms) | Median token-in | Median token-out | Median accuracy* |
 |---|---:|---:|---:|---:|
-| Standard browser use | 1208.3 | 2437.5 | 8.0 | 0.83 |
-| OpenClaw ARIA snapshot | 914.5 | 20651.5 | 8.0 | 1.0 |
-| Semantic Browser (auto + planner) | 2146.5 | 586.0 | 6.0 | 1.0 |
+| Standard browser use | 1208.3 | 2437.5 | N/A (not measured) | 0.83 |
+| OpenClaw ARIA snapshot | 914.5 | 20651.5 | N/A (not measured) | 1.0 |
+| Semantic Browser (auto + planner) | 2146.5 | 586.0 | N/A (not measured) | 1.0 |
 
-\*Accuracy is a keyword/task-term hit-rate proxy per site (not full end-to-end task success).
+\*Accuracy is a keyword/task-term proxy per site (not full end-to-end action-set success).
 
 ## Per-site snapshot
 
