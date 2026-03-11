@@ -159,6 +159,13 @@ If you do not provide a hint, the runtime now prefers non-blank pages over
 If you use `page_index`, it must be zero-based and valid for the target context.
 Invalid indices now raise `AttachmentError` instead of silently falling back.
 
+Observation recovery: summary observations now auto-retry up to 2 extra times
+when extraction returns a transient "No visible nodes" state:
+- retry 1: short backoff
+- retry 2: page reload + settle backoff
+
+This reduces flaky low-confidence results on dynamic SPAs (for example Teams).
+
 ---
 
 ## CLI Commands

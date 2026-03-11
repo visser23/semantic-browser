@@ -35,6 +35,8 @@ class FakePage:
         self.frames = [object()]
         self.accessibility = types.SimpleNamespace(snapshot=self._ax)
         self.keyboard = types.SimpleNamespace(press=self._press)
+        self.node_snapshot_calls = 0
+        self.reload_calls = 0
 
     async def _press(self, key):
         return None
@@ -54,6 +56,7 @@ class FakePage:
         if "querySelector('[role=\"dialog\"" in text:
             return False
         if "node_count" in text:
+            self.node_snapshot_calls += 1
             return {
                 "title": "Example Domain",
                 "node_count": 2,
@@ -75,7 +78,9 @@ class FakePage:
     async def go_forward(self):
         return None
 
-    async def reload(self):
+    async def reload(self, wait_until=None):
+        _ = wait_until
+        self.reload_calls += 1
         return None
 
     def get_by_role(self, role, name=None):
@@ -94,6 +99,16 @@ class FakePage:
         return None
 
 
+class FlakyNoVisibleNodesPage(FakePage):
+    async def evaluate(self, script):
+        text = str(script)
+        if "node_count" in text:
+            self.node_snapshot_calls += 1
+            if self.node_snapshot_calls < 3:
+                return {"title": "Transient", "node_count": 0, "nodes": []}
+        return await super().evaluate(script)
+
+
 @pytest.mark.asyncio
 async def test_runtime_observe_and_navigate():
     runtime = SemanticBrowserRuntime.from_page(FakePage())
@@ -101,6 +116,17 @@ async def test_runtime_observe_and_navigate():
     assert obs.page.domain == "example.com"
     result = await runtime.navigate("https://example.com/next")
     assert result.status == "success"
+
+
+@pytest.mark.asyncio
+async def test_runtime_observe_retries_on_no_visible_nodes_state():
+    page = FlakyNoVisibleNodesPage()
+    runtime = SemanticBrowserRuntime.from_page(page)
+    obs = await runtime.observe("summary")
+    assert obs.page.domain == "example.com"
+    assert len(obs.available_actions) > 0
+    assert page.node_snapshot_calls >= 3
+    assert page.reload_calls == 1
 
 
 @pytest.mark.asyncio

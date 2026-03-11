@@ -137,19 +137,49 @@ class SemanticBrowserRuntime:
     def session_id(self) -> str:
         return self._session_id
 
-    async def observe(self, mode: str = "summary") -> Observation:
-        await wait_for_settle(self._page, self._config.settle)
-        observation, id_map = await observe_page(
-            session_id=self._session_id,
-            page=self._page,
-            mode=mode,
-            config=self._config,
-            previous_observation=self._current_observation,
-            previous_ids=self._id_map,
+    @staticmethod
+    def _is_no_visible_nodes_state(observation: Observation) -> bool:
+        reasons = {r.lower() for r in observation.confidence.reasons}
+        return "no visible nodes" in reasons or (
+            len(observation.available_actions) == 0 and observation.confidence.overall <= 0.2
         )
+
+    async def observe(self, mode: str = "summary") -> Observation:
+        max_attempts = 3 if mode == "summary" else 1
+        observation: Observation | None = None
+        id_map: dict[str, str] = {}
+        for attempt in range(1, max_attempts + 1):
+            await wait_for_settle(self._page, self._config.settle)
+            observation, id_map = await observe_page(
+                session_id=self._session_id,
+                page=self._page,
+                mode=mode,
+                config=self._config,
+                previous_observation=self._current_observation,
+                previous_ids=self._id_map,
+            )
+            if attempt < max_attempts and self._is_no_visible_nodes_state(observation):
+                if attempt == 1:
+                    await self._page.wait_for_timeout(350)
+                else:
+                    try:
+                        await self._page.reload(wait_until="domcontentloaded")
+                    except TypeError:
+                        await self._page.reload()
+                    await self._page.wait_for_timeout(700)
+                continue
+            break
+
         self._id_map = id_map
         self._current_observation = observation
-        self._trace.add("observe", {"mode": mode, "actions": len(observation.available_actions)})
+        self._trace.add(
+            "observe",
+            {
+                "mode": mode,
+                "actions": len(observation.available_actions),
+                "recovery_attempts": max(0, attempt - 1),
+            },
+        )
         return observation
 
     async def inspect(self, target_id: str, mode: str = "auto") -> dict[str, Any]:
