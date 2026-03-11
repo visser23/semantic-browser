@@ -36,10 +36,12 @@ Other browser tools give the LLM the same data in a different wrapper. We give i
 
 _Route: OpenAI API (`gpt-5.3-codex`). Full 25-task run against non-semantic routes._
 
-| Method | Success rate | Median token-in | Median token-out | Median speed | Est. cost/request |
+| Method | Success rate | Median token-in | Mean token-out | Median speed | Est. cost/request |
 |---|---:|---:|---:|---:|---:|
-| Standard browser tooling | 8% (2/25) | 4,660 | 32 | 3,110ms | $0.0110 |
-| OpenClaw browser tooling | 20% (5/25) | 3,363 | 32 | 3,178ms | $0.0076 |
+| Standard browser tooling | 8% (2/25) | 4,660 | 28.1 | 3,110ms | $0.0110 |
+| OpenClaw browser tooling | 20% (5/25) | 3,363 | 24.6 | 3,178ms | $0.0076 |
+
+Cost is computed from mean token-in/out in the benchmark summary, not medians.
 
 Source artefacts:
 - `docs/benchmarks/2026-03-11-other-routes-25.json`
