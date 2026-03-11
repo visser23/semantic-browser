@@ -1,51 +1,51 @@
 {
   "summary": {
     "standard_browser_use": {
-      "task_success_rate": 0.75,
-      "stuck_rate": 0.25,
+      "task_success_rate": 0.45,
+      "stuck_rate": 0.55,
       "speed_ms": {
-        "median": 2408.2,
-        "mean": 2406.3
+        "median": 5198.1,
+        "mean": 14908.6
       },
       "tok_in": {
-        "median": 159.0,
-        "mean": 1025.5
+        "median": 144.5,
+        "mean": 859.9
       },
       "tok_out": {
-        "median": 13.0,
-        "mean": 13.4
+        "median": 14.0,
+        "mean": 8.4
       }
     },
     "openclaw_browser": {
-      "task_success_rate": 0.6,
-      "stuck_rate": 0.4,
+      "task_success_rate": 0.25,
+      "stuck_rate": 0.75,
       "speed_ms": {
-        "median": 2452.5,
-        "mean": 4519.4
+        "median": 27336.5,
+        "mean": 18507.8
       },
       "tok_in": {
-        "median": 2644.0,
-        "mean": 9895.3
+        "median": 46.5,
+        "mean": 1398.0
       },
       "tok_out": {
-        "median": 13.0,
-        "mean": 11.8
+        "median": 6.5,
+        "mean": 7.1
       }
     },
     "semantic_browser": {
-      "task_success_rate": 0.8,
-      "stuck_rate": 0.2,
+      "task_success_rate": 0.35,
+      "stuck_rate": 0.65,
       "speed_ms": {
-        "median": 5478.9,
-        "mean": 7861.2
+        "median": 30000.0,
+        "mean": 22692.0
       },
       "tok_in": {
-        "median": 1039.0,
-        "mean": 1198.7
+        "median": 476.0,
+        "mean": 961.6
       },
       "tok_out": {
-        "median": 13.0,
-        "mean": 10.8
+        "median": 6.5,
+        "mean": 11.8
       }
     },
     "task_count": 20
@@ -58,23 +58,23 @@
       "standard": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2391.4,
-        "tok_in": 4558,
-        "tok_out": 13
+        "speed_ms": 5170.5,
+        "tok_in": 5414,
+        "tok_out": 14
       },
       "openclaw": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 20071.1,
-        "tok_in": 36873,
+        "speed_ms": 24673.1,
+        "tok_in": 4369,
         "tok_out": 13
       },
       "semantic": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 35782.7,
-        "tok_in": 1837,
-        "tok_out": 9,
+        "speed_ms": 40934.4,
+        "tok_in": 2511,
+        "tok_out": 26,
         "route": "semantic_full"
       }
     },
@@ -85,23 +85,23 @@
       "standard": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2401.8,
-        "tok_in": 4578,
-        "tok_out": 13
+        "speed_ms": 5034.3,
+        "tok_in": 5393,
+        "tok_out": 14
       },
       "openclaw": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 3262.0,
-        "tok_in": 36812,
+        "speed_ms": 8019.9,
+        "tok_in": 4355,
         "tok_out": 13
       },
       "semantic": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 4629.8,
-        "tok_in": 931,
-        "tok_out": 14,
+        "speed_ms": 5930.8,
+        "tok_in": 1263,
+        "tok_out": 13,
         "route": "aria_compact"
       }
     },
@@ -112,23 +112,23 @@
       "standard": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2360.9,
-        "tok_in": 66,
-        "tok_out": 13
+        "speed_ms": 5024.9,
+        "tok_in": 157,
+        "tok_out": 15
       },
       "openclaw": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2444.2,
-        "tok_in": 1514,
-        "tok_out": 13
+        "speed_ms": 4828.4,
+        "tok_in": 1992,
+        "tok_out": 14
       },
       "semantic": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 8783.0,
-        "tok_in": 1369,
-        "tok_out": 9,
+        "speed_ms": 13176.4,
+        "tok_in": 1934,
+        "tok_out": 26,
         "route": "semantic_full"
       }
     },
@@ -139,23 +139,23 @@
       "standard": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 2353.4,
-        "tok_in": 56,
-        "tok_out": 14
+        "speed_ms": 4500.5,
+        "tok_in": 151,
+        "tok_out": 15
       },
       "openclaw": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 1649.2,
-        "tok_in": 1418,
-        "tok_out": 11
+        "speed_ms": 4275.4,
+        "tok_in": 1866,
+        "tok_out": 15
       },
       "semantic": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 2237.1,
-        "tok_in": 1099,
-        "tok_out": 6,
+        "speed_ms": 12279.7,
+        "tok_in": 1570,
+        "tok_out": 30,
         "route": "semantic_full"
       }
     },
@@ -166,23 +166,23 @@
       "standard": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 2391.3,
-        "tok_in": 684,
-        "tok_out": 13
+        "speed_ms": 4534.3,
+        "tok_in": 1600,
+        "tok_out": 14
       },
       "openclaw": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 1669.0,
-        "tok_in": 17853,
-        "tok_out": 11
+        "speed_ms": 5008.1,
+        "tok_in": 3897,
+        "tok_out": 13
       },
       "semantic": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 2729.7,
-        "tok_in": 2074,
-        "tok_out": 6,
+        "speed_ms": 7599.3,
+        "tok_in": 2840,
+        "tok_out": 26,
         "route": "semantic_full"
       }
     },
@@ -193,23 +193,23 @@
       "standard": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2422.2,
-        "tok_in": 405,
-        "tok_out": 14
+        "speed_ms": 4645.4,
+        "tok_in": 804,
+        "tok_out": 15
       },
       "openclaw": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2457.3,
-        "tok_in": 5190,
-        "tok_out": 13
+        "speed_ms": 4871.8,
+        "tok_in": 4039,
+        "tok_out": 15
       },
       "semantic": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 5415.8,
-        "tok_in": 895,
-        "tok_out": 14,
+        "speed_ms": 6596.0,
+        "tok_in": 1535,
+        "tok_out": 15,
         "route": "aria_compact"
       }
     },
@@ -220,23 +220,23 @@
       "standard": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2471.6,
-        "tok_in": 46,
-        "tok_out": 14
+        "speed_ms": 4884.4,
+        "tok_in": 404,
+        "tok_out": 9
       },
       "openclaw": {
-        "ok": false,
-        "stuck": true,
-        "speed_ms": 30000.0,
-        "tok_in": 0,
-        "tok_out": 0
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 5381.7,
+        "tok_in": 3302,
+        "tok_out": 14
       },
       "semantic": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 8532.3,
-        "tok_in": 1663,
-        "tok_out": 9,
+        "speed_ms": 29387.0,
+        "tok_in": 1906,
+        "tok_out": 28,
         "route": "semantic_full"
       }
     },
@@ -247,23 +247,23 @@
       "standard": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2426.2,
-        "tok_in": 268,
-        "tok_out": 13
+        "speed_ms": 4428.0,
+        "tok_in": 367,
+        "tok_out": 15
       },
       "openclaw": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2754.1,
-        "tok_in": 2560,
-        "tok_out": 13
+        "speed_ms": 5738.1,
+        "tok_in": 3880,
+        "tok_out": 15
       },
       "semantic": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 6232.9,
-        "tok_in": 681,
-        "tok_out": 13,
+        "speed_ms": 7490.4,
+        "tok_in": 952,
+        "tok_out": 14,
         "route": "aria_compact"
       }
     },
@@ -274,23 +274,23 @@
       "standard": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2421.4,
-        "tok_in": 21,
-        "tok_out": 14
+        "speed_ms": 4402.1,
+        "tok_in": 97,
+        "tok_out": 15
       },
       "openclaw": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 1565.1,
-        "tok_in": 19,
-        "tok_out": 11
+        "speed_ms": 3586.0,
+        "tok_in": 166,
+        "tok_out": 15
       },
       "semantic": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 15952.2,
-        "tok_in": 1709,
-        "tok_out": 9,
+        "speed_ms": 19553.6,
+        "tok_in": 2363,
+        "tok_out": 28,
         "route": "semantic_full"
       }
     },
@@ -301,23 +301,23 @@
       "standard": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 2324.9,
-        "tok_in": 21,
-        "tok_out": 14
+        "speed_ms": 4833.1,
+        "tok_in": 2522,
+        "tok_out": 15
       },
       "openclaw": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 1555.1,
-        "tok_in": 19,
-        "tok_out": 11
+        "speed_ms": 3773.9,
+        "tok_in": 93,
+        "tok_out": 15
       },
       "semantic": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 9016.5,
-        "tok_in": 1709,
-        "tok_out": 6,
+        "speed_ms": 10893.0,
+        "tok_in": 2359,
+        "tok_out": 29,
         "route": "semantic_full"
       }
     },
@@ -328,24 +328,24 @@
       "standard": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2412.0,
-        "tok_in": 60,
-        "tok_out": 13
+        "speed_ms": 5487.8,
+        "tok_in": 149,
+        "tok_out": 14
       },
       "openclaw": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2501.4,
-        "tok_in": 2728,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "semantic": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 5550.0,
-        "tok_in": 863,
-        "tok_out": 13,
-        "route": "aria_compact"
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "route": "error"
       }
     },
     {
@@ -355,24 +355,24 @@
       "standard": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 2535.0,
-        "tok_in": 60,
-        "tok_out": 13
+        "speed_ms": 5225.8,
+        "tok_in": 140,
+        "tok_out": 14
       },
       "openclaw": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2561.6,
-        "tok_in": 2728,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "semantic": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 5406.5,
-        "tok_in": 863,
-        "tok_out": 13,
-        "route": "aria_compact"
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "route": "error"
       }
     },
     {
@@ -382,24 +382,24 @@
       "standard": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 2420.5,
-        "tok_in": 159,
-        "tok_out": 13
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "openclaw": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2489.4,
-        "tok_in": 1229,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "semantic": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 4865.8,
-        "tok_in": 849,
-        "tok_out": 13,
-        "route": "aria_compact"
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "route": "error"
       }
     },
     {
@@ -409,24 +409,24 @@
       "standard": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 2426.1,
-        "tok_in": 159,
-        "tok_out": 14
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "openclaw": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2447.7,
-        "tok_in": 443,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "semantic": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 4488.6,
-        "tok_in": 849,
-        "tok_out": 13,
-        "route": "aria_compact"
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "route": "error"
       }
     },
     {
@@ -434,26 +434,26 @@
       "url": "https://www.notion.so/",
       "keyword": "log in",
       "standard": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2431.4,
-        "tok_in": 46,
-        "tok_out": 14
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "openclaw": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 1574.2,
-        "tok_in": 177,
-        "tok_out": 11
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "semantic": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 5305.6,
-        "tok_in": 1179,
-        "tok_out": 6,
-        "route": "semantic_full"
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "route": "error"
       }
     },
     {
@@ -461,26 +461,26 @@
       "url": "https://www.notion.so/",
       "keyword": "request a demo",
       "standard": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2404.5,
-        "tok_in": 114,
-        "tok_out": 15
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "openclaw": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 1604.2,
-        "tok_in": 468,
-        "tok_out": 11
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "semantic": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 13591.5,
-        "tok_in": 1517,
-        "tok_out": 9,
-        "route": "semantic_full"
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "route": "error"
       }
     },
     {
@@ -488,26 +488,26 @@
       "url": "https://www.wikipedia.org/",
       "keyword": "search",
       "standard": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2337.7,
-        "tok_in": 1564,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "openclaw": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2353.9,
-        "tok_in": 6103,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "semantic": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 3942.8,
-        "tok_in": 1039,
-        "tok_out": 13,
-        "route": "aria_compact"
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "route": "error"
       }
     },
     {
@@ -515,26 +515,26 @@
       "url": "https://www.wikipedia.org/",
       "keyword": "english",
       "standard": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2320.8,
-        "tok_in": 1564,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "openclaw": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2447.2,
-        "tok_in": 6103,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "semantic": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 3184.1,
-        "tok_in": 1039,
-        "tok_out": 13,
-        "route": "aria_compact"
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "route": "error"
       }
     },
     {
@@ -542,26 +542,26 @@
       "url": "https://www.bbc.co.uk/",
       "keyword": "news",
       "standard": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2364.1,
-        "tok_in": 3041,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "openclaw": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2500.2,
-        "tok_in": 37835,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "semantic": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 5542.0,
-        "tok_in": 904,
-        "tok_out": 13,
-        "route": "aria_compact"
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "route": "error"
       }
     },
     {
@@ -569,26 +569,26 @@
       "url": "https://www.bbc.co.uk/",
       "keyword": "sport",
       "standard": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2509.7,
-        "tok_in": 3041,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "openclaw": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 2481.2,
-        "tok_in": 37834,
-        "tok_out": 13
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0
       },
       "semantic": {
-        "ok": true,
-        "stuck": false,
-        "speed_ms": 6035.3,
-        "tok_in": 904,
-        "tok_out": 14,
-        "route": "aria_compact"
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "route": "error"
       }
     }
   ]

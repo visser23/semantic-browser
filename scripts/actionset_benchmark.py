@@ -88,6 +88,7 @@ def planner_pick_keyword(planner_in: str, keyword: str) -> tuple[str, Usage]:
     model = os.getenv("BENCHMARK_MODEL", "anthropic/claude-sonnet-4.5")
     body = {
         "model": model,
+        "max_tokens": 64,
         "messages": [
             {
                 "role": "system",
