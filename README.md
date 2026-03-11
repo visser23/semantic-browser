@@ -27,31 +27,30 @@ If your bot has ever clicked the wrong thing because a cookie banner sneezed, th
 
 ---
 
-## Comparative results (10 major sites, 20 action tasks, median)
+## Comparative results (5 complex end-to-end tasks, median)
 
 Benchmark files:
 - `docs/benchmarks/2026-03-11-actionset-compare.md`
 - `docs/benchmarks/2026-03-11-actionset-compare.json`
 
-Tested sites: Amazon, YouTube, Reddit, LinkedIn, Instagram, X, Google Maps, Notion, Wikipedia, BBC.
+Task set (same request run across all three methods): Amazon, Reddit, YouTube, BBC, Wikipedia.
 
-| Method | Success rate | Stuck rate | Median speed (ms) | Median token-in | Median token-out | Est. cost / request (USD) | Est. cost / 10 requests (USD) |
-|---|---:|---:|---:|---:|---:|---:|---:|
-| Standard browser use | 0.75 | 0.25 | 2408.2 | 159.0 | 13.0 | 0.000672 | 0.006720 |
-| OpenClaw browser | 0.60 | 0.40 | 2452.5 | 2644.0 | 13.0 | 0.008127 | 0.081270 |
-| **Semantic Browser (auto + planner)** | **0.80** | **0.20** | 5478.9 | 1039.0 | 13.0 | 0.003312 | 0.033120 |
+Planner route for this run: `openai:gpt-4.1-mini` for all methods.
+Cost normalisation: Sonnet 4.6 pricing constants ($3.00/M input, $15.00/M output).
+
+| Method | Success rate | Failures | Median speed (ms) | Median token-in | Median token-out | Est. cost / request (USD) |
+|---|---:|---:|---:|---:|---:|---:|
+| Standard browser tooling | 0.20 | 4 | 13,528.8 | 21,592.0 | 99.0 | 0.046537 |
+| OpenClaw browser tooling | 0.00 | 5 | 14,805.3 | 14,278.0 | 125.0 | 0.043909 |
+| **Semantic Browser** | **0.40** | **3** | 16,497.1 | 9,958.0 | 113.0 | **0.033961** |
 
 ### What this means (honest version)
 
-- This run is **action-set based**, so it includes real stuck/fail behaviour.
-- **Semantic Browser now wins on reliability** (highest success, lowest stuck).
-- We are still **slower** and need a focused speed pass.
-- Token-in remains far lower than OpenClaw ARIA-style payloads while maintaining stronger task completion in this run.
-- Cost estimate (Sonnet 4.6 pricing) shows materially lower projected spend than OpenClaw-style snapshot payloads at 10 requests.
-
-Short version: reliability win achieved; speed optimisation is next.
-
-`token-in`/`token-out` now come from provider-reported usage telemetry (OpenRouter chat/completions `usage` fields), not local payload-size proxies.
+- This benchmark is now end-to-end (multi-step goals), not single click-label matching.
+- Semantic Browser delivered the highest completion rate in this run.
+- Semantic remains slower than the other two methods on median task time.
+- Provider telemetry (`usage`) is used directly for token-in/token-out; no local proxy counting.
+- Cost is estimated with Sonnet 4.6 constants for like-for-like economic comparison across routes.
 
 ---
 
