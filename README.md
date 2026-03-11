@@ -171,6 +171,12 @@ Top-first token behaviour (summary mode):
 - `observe(mode="full")` returns broader full-page context
 - summary key points include a `top-scope summary: X/Y interactables included` hint
 
+Auto routing mode:
+- `observe(mode="auto")` computes a lightweight ARIA quality score and chooses route automatically:
+  - good ARIA => compact top-scope route (`aria_compact`)
+  - weak/noisy ARIA => broader route (`semantic_full`)
+- route and quality are exposed in `observation.metrics` and summary key points.
+
 This keeps default observations leaner while allowing deterministic escalation to full context.
 
 ---

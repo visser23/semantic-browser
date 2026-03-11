@@ -158,6 +158,16 @@ async def test_summary_mode_uses_top_scope_and_full_mode_includes_more_actions()
 
 
 @pytest.mark.asyncio
+async def test_auto_mode_sets_route_and_quality_metrics():
+    runtime = SemanticBrowserRuntime.from_page(DensePage())
+    obs = await runtime.observe("auto")
+    assert obs.metrics.extraction_route is not None
+    assert obs.metrics.aria_quality is not None
+    assert obs.metrics.total_interactable_count is not None
+    assert obs.metrics.scoped_interactable_count is not None
+
+
+@pytest.mark.asyncio
 async def test_runtime_act():
     runtime = SemanticBrowserRuntime.from_page(FakePage())
     obs = await runtime.observe("summary")

@@ -8,7 +8,7 @@ from typing import Any, Literal
 from pydantic import BaseModel, Field
 
 
-ObservationMode = Literal["summary", "full", "delta", "debug"]
+ObservationMode = Literal["summary", "full", "delta", "debug", "auto"]
 StepStatus = Literal["success", "failed", "blocked", "stale", "invalid", "ambiguous"]
 
 
@@ -115,6 +115,10 @@ class ObservationMetrics(BaseModel):
     content_group_count: int = 0
     delta_bytes: int = 0
     full_bytes: int = 0
+    extraction_route: str | None = None
+    aria_quality: float | None = None
+    scoped_interactable_count: int | None = None
+    total_interactable_count: int | None = None
 
 
 class ConfidenceReport(BaseModel):
