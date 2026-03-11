@@ -19,6 +19,8 @@ class ExtractionConfig(BaseModel):
     content_group_min_items: int = 3
     low_name_threshold: float = 0.5
     low_action_coverage_threshold: float = 0.3
+    summary_top_scope_enabled: bool = True
+    summary_top_scope_multiplier: float = 1.6
 
 
 class RedactionConfig(BaseModel):

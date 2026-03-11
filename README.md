@@ -166,6 +166,13 @@ when extraction returns a transient "No visible nodes" state:
 
 This reduces flaky low-confidence results on dynamic SPAs (for example Teams).
 
+Top-first token behaviour (summary mode):
+- `observe(mode="summary")` now focuses on a top-of-page slice (viewport + buffer)
+- `observe(mode="full")` returns broader full-page context
+- summary key points include a `top-scope summary: X/Y interactables included` hint
+
+This keeps default observations leaner while allowing deterministic escalation to full context.
+
 ---
 
 ## CLI Commands

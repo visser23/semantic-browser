@@ -25,6 +25,41 @@ from .redaction import redact_nodes
 from .semantics import extract_semantics
 
 
+async def _viewport_height(page: Any) -> float:
+    try:
+        value = await page.evaluate("() => window.innerHeight || 1080")
+        return float(value or 1080)
+    except Exception:
+        return 1080.0
+
+
+def _node_in_top_scope(node: dict[str, Any], cutoff_y: float) -> bool:
+    if bool(node.get("in_viewport", False)):
+        return True
+    rect = node.get("rect") or {}
+    y = rect.get("y")
+    h = rect.get("h")
+    if y is None:
+        return False
+    try:
+        y_f = float(y)
+        h_f = float(h or 0)
+    except Exception:
+        return False
+    return (y_f + max(h_f, 1.0)) <= cutoff_y
+
+
+async def _nodes_for_mode(nodes: list[dict[str, Any]], page: Any, mode: str, config: RuntimeConfig) -> tuple[list[dict[str, Any]], bool]:
+    if mode != "summary" or not config.extraction.summary_top_scope_enabled:
+        return nodes, False
+    viewport_h = await _viewport_height(page)
+    cutoff_y = viewport_h * max(config.extraction.summary_top_scope_multiplier, 1.0)
+    scoped = [n for n in nodes if _node_in_top_scope(n, cutoff_y)]
+    if not scoped:
+        return nodes, False
+    return scoped, len(scoped) < len(nodes)
+
+
 def _action_for_node(node: dict[str, Any], node_id: str, idx: int) -> ActionDescriptor | None:
     role = node.get("role", "")
     tag = node.get("tag", "")
@@ -71,7 +106,8 @@ async def observe_page(
 ) -> tuple[Observation, dict[str, str]]:
     start = time.perf_counter()
     sem = await extract_semantics(page)
-    nodes = redact_nodes(sem.get("nodes", []), config.redaction)
+    all_nodes = redact_nodes(sem.get("nodes", []), config.redaction)
+    nodes, top_scoped = await _nodes_for_mode(all_nodes, page, mode, config)
     id_map = assign_node_ids(nodes, previous=previous_ids)
     page_info = await capture_page_info(page)
     page_info.page_type = classify_page(nodes)
@@ -134,14 +170,18 @@ async def observe_page(
     confidence, warnings = confidence_from_nodes(nodes, len(actions), config.extraction)
 
     dom_stats = await capture_dom_stats(page)
+    key_points = [
+        f"{len(regions)} regions",
+        f"{len(forms)} forms",
+        f"{len(groups)} content groups",
+        f"{dom_stats.get('links', 0)} links",
+    ]
+    if top_scoped:
+        key_points.append(f"top-scope summary: {len(nodes)}/{len(all_nodes)} interactables included")
+        key_points.append("request full mode when more page context is needed")
     summary = PageSummary(
         headline=f"{page_info.page_type} page with {len(actions)} actions",
-        key_points=[
-            f"{len(regions)} regions",
-            f"{len(forms)} forms",
-            f"{len(groups)} content groups",
-            f"{dom_stats.get('links', 0)} links",
-        ],
+        key_points=key_points,
     )
     extraction_ms = int((time.perf_counter() - start) * 1000)
     obs = Observation(

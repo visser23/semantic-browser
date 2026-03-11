@@ -109,6 +109,25 @@ class FlakyNoVisibleNodesPage(FakePage):
         return await super().evaluate(script)
 
 
+class DensePage(FakePage):
+    async def evaluate(self, script):
+        text = str(script)
+        if "node_count" in text:
+            top_nodes = [
+                {"tag": "a", "role": "link", "name": f"Top {i}", "type": "", "href": f"https://example.com/{i}", "disabled": False, "in_viewport": i < 4, "rect": {"x": 0, "y": i * 120, "w": 200, "h": 40}, "text": "Top"}
+                for i in range(8)
+            ]
+            lower_nodes = [
+                {"tag": "a", "role": "link", "name": f"Lower {i}", "type": "", "href": f"https://example.com/l{i}", "disabled": False, "in_viewport": False, "rect": {"x": 0, "y": 2400 + i * 120, "w": 200, "h": 40}, "text": "Lower"}
+                for i in range(8)
+            ]
+            nodes = top_nodes + lower_nodes
+            return {"title": "Dense", "node_count": len(nodes), "nodes": nodes}
+        if text.strip() == "() => window.innerHeight || 1080":
+            return 1000
+        return await super().evaluate(script)
+
+
 @pytest.mark.asyncio
 async def test_runtime_observe_and_navigate():
     runtime = SemanticBrowserRuntime.from_page(FakePage())
@@ -127,6 +146,15 @@ async def test_runtime_observe_retries_on_no_visible_nodes_state():
     assert len(obs.available_actions) > 0
     assert page.node_snapshot_calls >= 3
     assert page.reload_calls == 1
+
+
+@pytest.mark.asyncio
+async def test_summary_mode_uses_top_scope_and_full_mode_includes_more_actions():
+    runtime = SemanticBrowserRuntime.from_page(DensePage())
+    summary_obs = await runtime.observe("summary")
+    full_obs = await runtime.observe("full")
+    assert len(full_obs.available_actions) > len(summary_obs.available_actions)
+    assert any("top-scope summary" in point for point in summary_obs.summary.key_points)
 
 
 @pytest.mark.asyncio
