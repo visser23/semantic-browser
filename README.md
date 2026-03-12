@@ -1,6 +1,7 @@
 # Semantic Browser
 <p align="left">
-  <img src="https://github.com/user-attachments/assets/e1c2e51b-103a-4a65-bb2e-b2a243793225" alt="Semantic Browser mascot" width="220" align="right" />
+  <img src="<img width="800" height="800" alt="Gemini_Generated_Image_n0t5nrn0t5nrn0t5" src="https://github.com/user-attachments/assets/159e96dc-eb88-407f-b69e-b01b603b102b" />
+" alt="Semantic Browser mascot" width="240" align="right" />
 </p>
 Make browser automation feel less like parsing soup and more like an old BBC Micro text adventure.
 
