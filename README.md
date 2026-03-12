@@ -32,49 +32,39 @@ Other browser tools give the LLM the same data in a different wrapper. We give i
 
 ## Benchmark Results
 
-### Baseline (validated rerun, 11 Mar 2026)
+### Full comparative rerun (12 Mar 2026, 25 tasks x 3 methods)
 
-_Route: OpenAI API (`gpt-5.3-codex`). Full 25-task run against non-semantic routes, with OpenAI Responses output parsing fixed for telemetry capture._
+_Route: OpenAI API (`gpt-5.3-codex`). All three methods ran the same 25-task corpus with stage-level telemetry enabled._
 
-| Method | Success rate | Median speed | Mean token-in | Mean token-out |
-|---|---:|---:|---:|---:|
-| Standard browser tooling | 28% (7/25) | 10,846ms | 11,895.8 | 109.8 |
-| OpenClaw browser tooling | 68% (17/25) | 9,590ms | 4,889.2 | 50.5 |
+Metric basis (explicit):
+- `planner input/output (billable)`: provider-billable planner tokens only.
+- `browser/runtime payload token-estimate` and `total effective context load`: non-billable estimates for payload/context pressure.
+- `indicative planner cost`: Sonnet 4.6-normalised estimate from planner billable tokens only.
 
-Tool-usage telemetry is now captured explicitly in the harness output (per run and success-only aggregates).
+| Method | Success rate | Failures | Median speed (ms) | Planner input median | Planner output median | Payload token-est median | Total effective context median | Median browser/runtime calls | Indicative planner cost/request (USD) |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Standard browser tooling | 24% (6/25) | 19 | 11,819.8 | 10,118 | 74 | 6,918 | 17,224 | 6.0 | 0.041005 |
+| OpenClaw browser tooling | 72% (18/25) | 7 | 10,514.2 | 6,833 | 66 | 5,219 | 12,078 | 6.0 | 0.022053 |
+| Semantic Browser | 48% (12/25) | 13 | 24,514.5 | 2,596 | 35 | 1,231 | 3,870 | 14.0 | 0.006195 |
 
-### Apples-to-apples telemetry validation (12 Mar 2026, 1-task validation)
+#### Planner cost summary (full 25-task run)
 
-_Route: OpenAI API (`gpt-5.3-codex`). Validation rerun used one shared task (`wikipedia_english_current_events`) across all three methods after telemetry normalisation and OpenAI planner support in Semantic Browser mode._
+| Method | Requests | Total indicative planner cost (USD) | Average/request (USD) |
+|---|---:|---:|---:|
+| Standard browser tooling | 25 | 1.025136 | 0.041005 |
+| OpenClaw browser tooling | 25 | 0.551322 | 0.022053 |
+| Semantic Browser | 25 | 0.154866 | 0.006195 |
+| **Cross-method grand total** | **75** | **1.731324** | **0.023084** |
 
-Metric basis (same for every row):
-- `planner input tokens (billable)`: tokens billed as planner input by the model provider.
-- `planner output tokens (billable)`: tokens billed as planner output by the model provider.
-- `browser/runtime payload bytes`: UTF-8 byte size of observation payload returned from browser/runtime and sent to planner.
-- `browser/runtime payload token-estimate` (estimated): payload character count ÷ 4 (non-billable estimate).
-- `total effective context load` (estimated): planner input billable tokens + payload token-estimate.
-- `planner tool calls`: tool/function calls declared by planner API responses.
-- `browser/runtime calls`: browser operations performed by each method loop.
-- `total tool calls`: planner tool calls + browser/runtime calls.
-- `indicative planner cost/request`: Sonnet 4.6-normalised estimate from planner billable tokens only.
-
-| Method | Success rate | Planner input (billable) | Planner output (billable) | Browser payload bytes | Payload token-est (estimated) | Total effective context load (estimated) | Planner tool calls | Browser/runtime calls | Total tool calls | Indicative planner cost/request (USD) |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Standard browser tooling | 0% (0/1) | 39,442 | 252 | 78,984 | 18,534 | 57,976 | 0.0 | 15.0 | 15.0 | 0.122106 |
-| OpenClaw browser tooling | 0% (0/1) | 11,511 | 102 | 32,000 | 7,914 | 19,425 | 0.0 | 5.0 | 5.0 | 0.036063 |
-| Semantic Browser | 100% (1/1) | 1,693 | 23 | 3,872 | 951 | 2,644 | 0.0 | 10.0 | 10.0 | 0.005424 |
-
-Caveats:
-- This is a telemetry validation run, not a quality/performance claim from one task.
-- Cross-method token deltas are expected because each method sends different observation payload shapes to the same planner.
+Interpretation:
+- OpenClaw browser tooling gave the best task success in this run, with materially lower planner spend than standard tooling.
+- Semantic Browser had the lowest planner cost by a wide margin, but lower completion than OpenClaw on this corpus/run.
+- Cost labels are planner-billable-only; payload/context metrics are estimated and reported separately.
 
 Source artefacts:
-- `docs/benchmarks/2026-03-11-other-routes-25.json`
-- `docs/benchmarks/2026-03-11-other-routes-25.md`
-- `docs/benchmarks/journals/2026-03-11/compare-other-routes-25/`
-- `docs/benchmarks/2026-03-11-actionset-compare.json` (tool-call telemetry validation)
-- `docs/benchmarks/2026-03-11-actionset-compare.md` (tool-call telemetry validation)
-- `docs/benchmarks/journals/2026-03-12/` (per-platform validation journals)
+- `docs/benchmarks/2026-03-11-actionset-compare.json`
+- `docs/benchmarks/2026-03-11-actionset-compare.md`
+- `docs/benchmarks/journals/2026-03-12/`
 
 ### Semantic Browser
 

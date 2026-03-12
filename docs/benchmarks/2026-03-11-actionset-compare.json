@@ -12,234 +12,1745 @@
       "model": "gpt-5.3-codex"
     },
     "standard_browser_use": {
-      "success_rate": 0.0,
-      "failure_count": 1,
+      "success_rate": 0.24,
+      "failure_count": 19,
       "speed_ms": {
-        "median": 65814.7,
-        "mean": 65814.7,
-        "n": 1
+        "median": 11819.8,
+        "mean": 16988.3,
+        "n": 25
       },
       "planner_input_tokens_billable": {
-        "median": 39442.0,
-        "mean": 39442.0,
-        "n": 1
+        "median": 10118.0,
+        "mean": 13114.5,
+        "n": 25
       },
       "planner_output_tokens_billable": {
-        "median": 252.0,
-        "mean": 252.0,
-        "n": 1
+        "median": 74.0,
+        "mean": 110.8,
+        "n": 25
       },
       "browser_payload_bytes": {
-        "median": 78984.0,
-        "mean": 78984.0,
-        "n": 1
+        "median": 27765.0,
+        "mean": 34925.4,
+        "n": 25
       },
       "browser_payload_tokens_estimated": {
-        "median": 18534.0,
-        "mean": 18534.0,
-        "n": 1
+        "median": 6918.0,
+        "mean": 8665.8,
+        "n": 25
       },
       "total_effective_context_load_tokens_estimated": {
-        "median": 57976.0,
-        "mean": 57976.0,
-        "n": 1
+        "median": 17224.0,
+        "mean": 21780.3,
+        "n": 25
       },
       "planner_tool_calls": {
         "median": 0.0,
         "mean": 0.0,
-        "n": 1
+        "n": 25
       },
       "browser_tool_calls": {
-        "median": 15.0,
-        "mean": 15.0,
-        "n": 1
+        "median": 6.0,
+        "mean": 7.1,
+        "n": 25
       },
       "tool_calls_total": {
-        "median": 15.0,
-        "mean": 15.0,
-        "n": 1
+        "median": 6.0,
+        "mean": 7.1,
+        "n": 25
       },
       "tool_calls_total_success_only": {
-        "median": 0.0,
-        "mean": 0.0,
-        "n": 0
+        "median": 4.0,
+        "mean": 4.0,
+        "n": 6
       },
-      "indicative_planner_cost_per_request_usd": 0.122106
+      "indicative_planner_cost_per_request_usd": 0.041005
     },
     "openclaw_browser": {
-      "success_rate": 0.0,
-      "failure_count": 1,
+      "success_rate": 0.72,
+      "failure_count": 7,
       "speed_ms": {
-        "median": 13540.1,
-        "mean": 13540.1,
-        "n": 1
+        "median": 10514.2,
+        "mean": 14758.8,
+        "n": 25
       },
       "planner_input_tokens_billable": {
-        "median": 11511.0,
-        "mean": 11511.0,
-        "n": 1
+        "median": 6833.0,
+        "mean": 6999.0,
+        "n": 25
       },
       "planner_output_tokens_billable": {
-        "median": 102.0,
-        "mean": 102.0,
-        "n": 1
+        "median": 66.0,
+        "mean": 70.4,
+        "n": 25
       },
       "browser_payload_bytes": {
-        "median": 32000.0,
-        "mean": 32000.0,
-        "n": 1
+        "median": 20870.0,
+        "mean": 20621.6,
+        "n": 25
       },
       "browser_payload_tokens_estimated": {
-        "median": 7914.0,
-        "mean": 7914.0,
-        "n": 1
+        "median": 5219.0,
+        "mean": 5149.3,
+        "n": 25
       },
       "total_effective_context_load_tokens_estimated": {
-        "median": 19425.0,
-        "mean": 19425.0,
-        "n": 1
+        "median": 12078.0,
+        "mean": 12148.2,
+        "n": 25
       },
       "planner_tool_calls": {
         "median": 0.0,
         "mean": 0.0,
-        "n": 1
+        "n": 25
       },
       "browser_tool_calls": {
-        "median": 5.0,
+        "median": 6.0,
         "mean": 5.0,
-        "n": 1
+        "n": 25
       },
       "tool_calls_total": {
-        "median": 5.0,
+        "median": 6.0,
         "mean": 5.0,
-        "n": 1
+        "n": 25
       },
       "tool_calls_total_success_only": {
-        "median": 0.0,
-        "mean": 0.0,
-        "n": 0
+        "median": 6.0,
+        "mean": 5.3,
+        "n": 18
       },
-      "indicative_planner_cost_per_request_usd": 0.036063
+      "indicative_planner_cost_per_request_usd": 0.022053
     },
     "semantic_browser": {
-      "success_rate": 1.0,
-      "failure_count": 0,
+      "success_rate": 0.48,
+      "failure_count": 13,
       "speed_ms": {
-        "median": 19403.9,
-        "mean": 19403.9,
-        "n": 1
+        "median": 24514.5,
+        "mean": 24378.3,
+        "n": 25
       },
       "planner_input_tokens_billable": {
-        "median": 1693.0,
-        "mean": 1693.0,
-        "n": 1
+        "median": 2596.0,
+        "mean": 1918.9,
+        "n": 25
       },
       "planner_output_tokens_billable": {
-        "median": 23.0,
-        "mean": 23.0,
-        "n": 1
+        "median": 35.0,
+        "mean": 29.2,
+        "n": 25
       },
       "browser_payload_bytes": {
-        "median": 3872.0,
-        "mean": 3872.0,
-        "n": 1
+        "median": 4912.0,
+        "mean": 4540.4,
+        "n": 25
       },
       "browser_payload_tokens_estimated": {
-        "median": 951.0,
-        "mean": 951.0,
-        "n": 1
+        "median": 1231.0,
+        "mean": 1132.4,
+        "n": 25
       },
       "total_effective_context_load_tokens_estimated": {
-        "median": 2644.0,
-        "mean": 2644.0,
-        "n": 1
+        "median": 3870.0,
+        "mean": 3051.2,
+        "n": 25
       },
       "planner_tool_calls": {
         "median": 0.0,
         "mean": 0.0,
-        "n": 1
+        "n": 25
       },
       "browser_tool_calls": {
-        "median": 10.0,
-        "mean": 10.0,
-        "n": 1
+        "median": 14.0,
+        "mean": 10.1,
+        "n": 25
       },
       "tool_calls_total": {
-        "median": 10.0,
-        "mean": 10.0,
-        "n": 1
+        "median": 14.0,
+        "mean": 10.1,
+        "n": 25
       },
       "tool_calls_total_success_only": {
-        "median": 10.0,
-        "mean": 10.0,
-        "n": 1
+        "median": 4.0,
+        "mean": 6.0,
+        "n": 12
       },
-      "indicative_planner_cost_per_request_usd": 0.005424
+      "indicative_planner_cost_per_request_usd": 0.006195
     },
-    "task_count": 1,
-    "journal_dir": "docs/benchmarks/journals/2026-03-12"
+    "task_count": 25,
+    "journal_dir": "docs/benchmarks/journals/2026-03-12",
+    "cost_summary": {
+      "scope": "planner_billable_only_sonnet46_normalised",
+      "per_method": {
+        "standard_browser_tooling": {
+          "requests": 25,
+          "total_indicative_planner_cost_usd": 1.025136,
+          "average_indicative_planner_cost_per_request_usd": 0.041005
+        },
+        "openclaw_browser_tooling": {
+          "requests": 25,
+          "total_indicative_planner_cost_usd": 0.551322,
+          "average_indicative_planner_cost_per_request_usd": 0.022053
+        },
+        "semantic_browser_runtime": {
+          "requests": 25,
+          "total_indicative_planner_cost_usd": 0.154866,
+          "average_indicative_planner_cost_per_request_usd": 0.006195
+        }
+      },
+      "cross_method": {
+        "requests": 75,
+        "grand_total_indicative_planner_cost_usd": 1.731324,
+        "average_indicative_planner_cost_per_request_usd": 0.023084
+      }
+    }
   },
   "tasks": [
     {
-      "task": "wikipedia_english_current_events",
+      "task": "bbc_news_tech",
+      "site": "bbc",
+      "url": "https://www.bbc.co.uk/",
+      "request": "Navigate to the BBC News Technology section.",
+      "checks": [
+        "/news/technology"
+      ],
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 12228.5,
+        "tok_in": 10275,
+        "tok_out": 63,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 10275,
+        "planner_output_tokens_billable": 63,
+        "browser_payload_bytes": 29271,
+        "browser_payload_tokens_estimated": 7317,
+        "total_effective_context_load_tokens_estimated": 17592,
+        "indicative_planner_cost_usd": 0.03177
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 5838.6,
+        "tok_in": 3485,
+        "tok_out": 32,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 3485,
+        "planner_output_tokens_billable": 32,
+        "browser_payload_bytes": 10498,
+        "browser_payload_tokens_estimated": 2625,
+        "total_effective_context_load_tokens_estimated": 6110,
+        "indicative_planner_cost_usd": 0.010935
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 26701.3,
+        "tok_in": 2934,
+        "tok_out": 37,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 2934,
+        "planner_output_tokens_billable": 37,
+        "browser_payload_bytes": 6391,
+        "browser_payload_tokens_estimated": 1597,
+        "total_effective_context_load_tokens_estimated": 4531,
+        "indicative_planner_cost_usd": 0.009357
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__bbc_news_tech.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__bbc_news_tech.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__bbc_news_tech.json"
+      }
+    },
+    {
+      "task": "wikipedia_current_events",
       "site": "wikipedia",
       "url": "https://www.wikipedia.org/",
-      "request": "Open English Wikipedia, then open Current events.",
+      "request": "Open English Wikipedia, then navigate to Current events.",
       "checks": [
         "Portal:Current_events"
       ],
       "standard": {
         "ok": false,
         "stuck": true,
-        "speed_ms": 65814.7,
-        "tok_in": 39442,
-        "tok_out": 252,
+        "speed_ms": 31647.5,
+        "tok_in": 39453,
+        "tok_out": 253,
         "planner_tool_calls": 0,
         "browser_tool_calls": 15,
         "tool_calls_total": 15,
-        "planner_input_tokens_billable": 39442,
-        "planner_output_tokens_billable": 252,
-        "browser_payload_bytes": 78984,
-        "browser_payload_tokens_estimated": 18534,
-        "total_effective_context_load_tokens_estimated": 57976,
-        "indicative_planner_cost_usd": 0.122106
+        "planner_input_tokens_billable": 39453,
+        "planner_output_tokens_billable": 253,
+        "browser_payload_bytes": 79046,
+        "browser_payload_tokens_estimated": 18551,
+        "total_effective_context_load_tokens_estimated": 58004,
+        "indicative_planner_cost_usd": 0.122154
       },
       "openclaw": {
-        "ok": false,
-        "stuck": true,
-        "speed_ms": 13540.1,
-        "tok_in": 11511,
-        "tok_out": 102,
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 24472.5,
+        "tok_in": 22416,
+        "tok_out": 193,
         "planner_tool_calls": 0,
-        "browser_tool_calls": 5,
-        "tool_calls_total": 5,
-        "planner_input_tokens_billable": 11511,
-        "planner_output_tokens_billable": 102,
-        "browser_payload_bytes": 32000,
-        "browser_payload_tokens_estimated": 7914,
-        "total_effective_context_load_tokens_estimated": 19425,
-        "indicative_planner_cost_usd": 0.036063
+        "browser_tool_calls": 10,
+        "tool_calls_total": 10,
+        "planner_input_tokens_billable": 22416,
+        "planner_output_tokens_billable": 193,
+        "browser_payload_bytes": 64826,
+        "browser_payload_tokens_estimated": 16122,
+        "total_effective_context_load_tokens_estimated": 38538,
+        "indicative_planner_cost_usd": 0.070143
       },
       "semantic": {
         "ok": true,
         "stuck": false,
-        "speed_ms": 19403.9,
-        "tok_in": 1693,
-        "tok_out": 23,
+        "speed_ms": 24845.5,
+        "tok_in": 2596,
+        "tok_out": 33,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 14,
+        "tool_calls_total": 14,
+        "planner_input_tokens_billable": 2596,
+        "planner_output_tokens_billable": 33,
+        "browser_payload_bytes": 6127,
+        "browser_payload_tokens_estimated": 1516,
+        "total_effective_context_load_tokens_estimated": 4112,
+        "indicative_planner_cost_usd": 0.008283
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__wikipedia_current_events.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__wikipedia_current_events.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__wikipedia_current_events.json"
+      }
+    },
+    {
+      "task": "github_explore_trending",
+      "site": "github",
+      "url": "https://github.com/",
+      "request": "Navigate to the Explore page, then open Trending repositories.",
+      "checks": [
+        "/trending"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 33605.0,
+        "tok_in": 32258,
+        "tok_out": 305,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 32258,
+        "planner_output_tokens_billable": 305,
+        "browser_payload_bytes": 103441,
+        "browser_payload_tokens_estimated": 25860,
+        "total_effective_context_load_tokens_estimated": 58118,
+        "indicative_planner_cost_usd": 0.101349
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 60000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 0,
+        "tool_calls_total": 0
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 36993.3,
+        "tok_in": 3007,
+        "tok_out": 37,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 3007,
+        "planner_output_tokens_billable": 37,
+        "browser_payload_bytes": 7045,
+        "browser_payload_tokens_estimated": 1751,
+        "total_effective_context_load_tokens_estimated": 4758,
+        "indicative_planner_cost_usd": 0.009576
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__github_explore_trending.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__github_explore_trending.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__github_explore_trending.json"
+      }
+    },
+    {
+      "task": "reddit_askreddit",
+      "site": "reddit",
+      "url": "https://www.reddit.com/",
+      "request": "Navigate to r/AskReddit.",
+      "checks": [
+        "/r/AskReddit",
+        "/r/askreddit"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 7125.7,
+        "tok_in": 10491,
+        "tok_out": 74,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 10491,
+        "planner_output_tokens_billable": 74,
+        "browser_payload_bytes": 27765,
+        "browser_payload_tokens_estimated": 6918,
+        "total_effective_context_load_tokens_estimated": 17409,
+        "indicative_planner_cost_usd": 0.032583
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 10333.4,
+        "tok_in": 7296,
+        "tok_out": 80,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 7296,
+        "planner_output_tokens_billable": 80,
+        "browser_payload_bytes": 21768,
+        "browser_payload_tokens_estimated": 5439,
+        "total_effective_context_load_tokens_estimated": 12735,
+        "indicative_planner_cost_usd": 0.023088
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 26064.8,
+        "tok_in": 3520,
+        "tok_out": 80,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 3520,
+        "planner_output_tokens_billable": 80,
+        "browser_payload_bytes": 8296,
+        "browser_payload_tokens_estimated": 2076,
+        "total_effective_context_load_tokens_estimated": 5596,
+        "indicative_planner_cost_usd": 0.01176
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__reddit_askreddit.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__reddit_askreddit.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__reddit_askreddit.json"
+      }
+    },
+    {
+      "task": "youtube_trending",
+      "site": "youtube",
+      "url": "https://www.youtube.com/",
+      "request": "Navigate to the Trending page.",
+      "checks": [
+        "/feed/trending",
+        "/trending",
+        "/feed/explore",
+        "explore"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 7566.3,
+        "tok_in": 3289,
+        "tok_out": 72,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 3289,
+        "planner_output_tokens_billable": 72,
+        "browser_payload_bytes": 8075,
+        "browser_payload_tokens_estimated": 2018,
+        "total_effective_context_load_tokens_estimated": 5307,
+        "indicative_planner_cost_usd": 0.010947
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 5764.2,
+        "tok_in": 1936,
+        "tok_out": 30,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 1936,
+        "planner_output_tokens_billable": 30,
+        "browser_payload_bytes": 5601,
+        "browser_payload_tokens_estimated": 1400,
+        "total_effective_context_load_tokens_estimated": 3336,
+        "indicative_planner_cost_usd": 0.006258
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 6005.7,
+        "tok_in": 335,
+        "tok_out": 6,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 335,
+        "planner_output_tokens_billable": 6,
+        "browser_payload_bytes": 648,
+        "browser_payload_tokens_estimated": 162,
+        "total_effective_context_load_tokens_estimated": 497,
+        "indicative_planner_cost_usd": 0.001095
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__youtube_trending.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__youtube_trending.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__youtube_trending.json"
+      }
+    },
+    {
+      "task": "google_search_python",
+      "site": "google",
+      "url": "https://www.google.com/",
+      "request": "Search for 'python web scraping tutorial' and wait for results.",
+      "checks": [
+        "python+web+scraping",
+        "python%20web%20scraping",
+        "q=python"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 28919.6,
+        "tok_in": 15721,
+        "tok_out": 231,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 15721,
+        "planner_output_tokens_billable": 231,
+        "browser_payload_bytes": 42887,
+        "browser_payload_tokens_estimated": 10721,
+        "total_effective_context_load_tokens_estimated": 26442,
+        "indicative_planner_cost_usd": 0.050628
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 10084.8,
+        "tok_in": 4752,
+        "tok_out": 61,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 4752,
+        "planner_output_tokens_billable": 61,
+        "browser_payload_bytes": 14210,
+        "browser_payload_tokens_estimated": 3554,
+        "total_effective_context_load_tokens_estimated": 8306,
+        "indicative_planner_cost_usd": 0.015171
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 5547.4,
+        "tok_in": 377,
+        "tok_out": 12,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 377,
+        "planner_output_tokens_billable": 12,
+        "browser_payload_bytes": 804,
+        "browser_payload_tokens_estimated": 201,
+        "total_effective_context_load_tokens_estimated": 578,
+        "indicative_planner_cost_usd": 0.001311
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__google_search_python.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__google_search_python.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__google_search_python.json"
+      }
+    },
+    {
+      "task": "wikipedia_search_alan_turing",
+      "site": "en",
+      "url": "https://en.wikipedia.org/",
+      "request": "Search Wikipedia for 'Alan Turing' and open the article.",
+      "checks": [
+        "Alan_Turing"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 11819.8,
+        "tok_in": 14485,
+        "tok_out": 105,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 14485,
+        "planner_output_tokens_billable": 105,
+        "browser_payload_bytes": 43377,
+        "browser_payload_tokens_estimated": 10827,
+        "total_effective_context_load_tokens_estimated": 25312,
+        "indicative_planner_cost_usd": 0.04503
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 14121.3,
+        "tok_in": 10519,
+        "tok_out": 109,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 8,
+        "tool_calls_total": 8,
+        "planner_input_tokens_billable": 10519,
+        "planner_output_tokens_billable": 109,
+        "browser_payload_bytes": 32137,
+        "browser_payload_tokens_estimated": 8032,
+        "total_effective_context_load_tokens_estimated": 18551,
+        "indicative_planner_cost_usd": 0.033192
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 10674.3,
+        "tok_in": 748,
+        "tok_out": 17,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 748,
+        "planner_output_tokens_billable": 17,
+        "browser_payload_bytes": 1634,
+        "browser_payload_tokens_estimated": 409,
+        "total_effective_context_load_tokens_estimated": 1157,
+        "indicative_planner_cost_usd": 0.002499
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__wikipedia_search_alan_turing.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__wikipedia_search_alan_turing.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__wikipedia_search_alan_turing.json"
+      }
+    },
+    {
+      "task": "github_search_repo",
+      "site": "github",
+      "url": "https://github.com/",
+      "request": "Search GitHub for 'playwright python' and view results.",
+      "checks": [
+        "q=playwright",
+        "playwright+python",
+        "playwright%20python"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 43208.6,
+        "tok_in": 24678,
+        "tok_out": 250,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 24678,
+        "planner_output_tokens_billable": 250,
+        "browser_payload_bytes": 64979,
+        "browser_payload_tokens_estimated": 16228,
+        "total_effective_context_load_tokens_estimated": 40906,
+        "indicative_planner_cost_usd": 0.077784
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 14360.2,
+        "tok_in": 10355,
+        "tok_out": 107,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 8,
+        "tool_calls_total": 8,
+        "planner_input_tokens_billable": 10355,
+        "planner_output_tokens_billable": 107,
+        "browser_payload_bytes": 31723,
+        "browser_payload_tokens_estimated": 7923,
+        "total_effective_context_load_tokens_estimated": 18278,
+        "indicative_planner_cost_usd": 0.03267
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 21831.6,
+        "tok_in": 2089,
+        "tok_out": 35,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 12,
+        "tool_calls_total": 12,
+        "planner_input_tokens_billable": 2089,
+        "planner_output_tokens_billable": 35,
+        "browser_payload_bytes": 4727,
+        "browser_payload_tokens_estimated": 1171,
+        "total_effective_context_load_tokens_estimated": 3260,
+        "indicative_planner_cost_usd": 0.006792
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__github_search_repo.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__github_search_repo.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__github_search_repo.json"
+      }
+    },
+    {
+      "task": "amazon_search_headphones",
+      "site": "amazon",
+      "url": "https://www.amazon.co.uk/",
+      "request": "Search Amazon for 'wireless headphones'.",
+      "checks": [
+        "wireless+headphones",
+        "wireless%20headphones",
+        "k=wireless"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 12811.7,
+        "tok_in": 16969,
+        "tok_out": 106,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 16969,
+        "planner_output_tokens_billable": 106,
+        "browser_payload_bytes": 46051,
+        "browser_payload_tokens_estimated": 11483,
+        "total_effective_context_load_tokens_estimated": 28452,
+        "indicative_planner_cost_usd": 0.052497
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 11349.2,
+        "tok_in": 6849,
+        "tok_out": 63,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 6849,
+        "planner_output_tokens_billable": 63,
+        "browser_payload_bytes": 21067,
+        "browser_payload_tokens_estimated": 5267,
+        "total_effective_context_load_tokens_estimated": 12116,
+        "indicative_planner_cost_usd": 0.021492
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 8086.2,
+        "tok_in": 429,
+        "tok_out": 11,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 429,
+        "planner_output_tokens_billable": 11,
+        "browser_payload_bytes": 1048,
+        "browser_payload_tokens_estimated": 262,
+        "total_effective_context_load_tokens_estimated": 691,
+        "indicative_planner_cost_usd": 0.001452
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__amazon_search_headphones.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__amazon_search_headphones.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__amazon_search_headphones.json"
+      }
+    },
+    {
+      "task": "stackoverflow_search_async",
+      "site": "stackoverflow",
+      "url": "https://stackoverflow.com/",
+      "request": "Search Stack Overflow for 'python async await'.",
+      "checks": [
+        "q=python+async",
+        "q=python%20async",
+        "search?q="
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 11123.1,
+        "tok_in": 13872,
+        "tok_out": 97,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 13872,
+        "planner_output_tokens_billable": 97,
+        "browser_payload_bytes": 40755,
+        "browser_payload_tokens_estimated": 10189,
+        "total_effective_context_load_tokens_estimated": 24061,
+        "indicative_planner_cost_usd": 0.043071
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 11706.4,
+        "tok_in": 10151,
+        "tok_out": 105,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 10151,
+        "planner_output_tokens_billable": 105,
+        "browser_payload_bytes": 30179,
+        "browser_payload_tokens_estimated": 7546,
+        "total_effective_context_load_tokens_estimated": 17697,
+        "indicative_planner_cost_usd": 0.032028
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 21893.6,
+        "tok_in": 1640,
+        "tok_out": 55,
         "planner_tool_calls": 0,
         "browser_tool_calls": 10,
         "tool_calls_total": 10,
-        "planner_input_tokens_billable": 1693,
-        "planner_output_tokens_billable": 23,
-        "browser_payload_bytes": 3872,
-        "browser_payload_tokens_estimated": 951,
-        "total_effective_context_load_tokens_estimated": 2644,
-        "indicative_planner_cost_usd": 0.005424
+        "planner_input_tokens_billable": 1640,
+        "planner_output_tokens_billable": 55,
+        "browser_payload_bytes": 3856,
+        "browser_payload_tokens_estimated": 965,
+        "total_effective_context_load_tokens_estimated": 2605,
+        "indicative_planner_cost_usd": 0.005745
       },
       "journals": {
-        "standard": "docs/benchmarks/journals/2026-03-12/standard__wikipedia_english_current_events.json",
-        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__wikipedia_english_current_events.json",
-        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__wikipedia_english_current_events.json"
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__stackoverflow_search_async.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__stackoverflow_search_async.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__stackoverflow_search_async.json"
+      }
+    },
+    {
+      "task": "bbc_sport_football",
+      "site": "bbc",
+      "url": "https://www.bbc.co.uk/",
+      "request": "Navigate to BBC Sport, then to the Football section.",
+      "checks": [
+        "/sport/football"
+      ],
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 12680.4,
+        "tok_in": 10118,
+        "tok_out": 65,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 10118,
+        "planner_output_tokens_billable": 65,
+        "browser_payload_bytes": 28427,
+        "browser_payload_tokens_estimated": 7106,
+        "total_effective_context_load_tokens_estimated": 17224,
+        "indicative_planner_cost_usd": 0.031329
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 6536.1,
+        "tok_in": 3488,
+        "tok_out": 30,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 3488,
+        "planner_output_tokens_billable": 30,
+        "browser_payload_bytes": 10506,
+        "browser_payload_tokens_estimated": 2627,
+        "total_effective_context_load_tokens_estimated": 6115,
+        "indicative_planner_cost_usd": 0.010914
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 60000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 0,
+        "tool_calls_total": 0
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__bbc_sport_football.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__bbc_sport_football.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__bbc_sport_football.json"
+      }
+    },
+    {
+      "task": "amazon_deals",
+      "site": "amazon",
+      "url": "https://www.amazon.co.uk/",
+      "request": "Navigate to Today's Deals page.",
+      "checks": [
+        "/gp/goldbox",
+        "/deals",
+        "goldbox"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 8672.0,
+        "tok_in": 7150,
+        "tok_out": 81,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 7150,
+        "planner_output_tokens_billable": 81,
+        "browser_payload_bytes": 19356,
+        "browser_payload_tokens_estimated": 4825,
+        "total_effective_context_load_tokens_estimated": 11975,
+        "indicative_planner_cost_usd": 0.022665
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 9315.4,
+        "tok_in": 6833,
+        "tok_out": 76,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 6833,
+        "planner_output_tokens_billable": 76,
+        "browser_payload_bytes": 20979,
+        "browser_payload_tokens_estimated": 5245,
+        "total_effective_context_load_tokens_estimated": 12078,
+        "indicative_planner_cost_usd": 0.021639
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 39844.8,
+        "tok_in": 3419,
+        "tok_out": 39,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 3419,
+        "planner_output_tokens_billable": 39,
+        "browser_payload_bytes": 8960,
+        "browser_payload_tokens_estimated": 2241,
+        "total_effective_context_load_tokens_estimated": 5660,
+        "indicative_planner_cost_usd": 0.010842
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__amazon_deals.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__amazon_deals.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__amazon_deals.json"
+      }
+    },
+    {
+      "task": "wikipedia_random_article",
+      "site": "en",
+      "url": "https://en.wikipedia.org/",
+      "request": "Click 'Random article' to go to a random Wikipedia article.",
+      "checks": [
+        "wiki/"
+      ],
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 2642.4,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 0,
+        "planner_output_tokens_billable": 0,
+        "browser_payload_bytes": 0,
+        "browser_payload_tokens_estimated": 0,
+        "total_effective_context_load_tokens_estimated": 0,
+        "indicative_planner_cost_usd": 0.0
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 1605.7,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 0,
+        "planner_output_tokens_billable": 0,
+        "browser_payload_bytes": 0,
+        "browser_payload_tokens_estimated": 0,
+        "total_effective_context_load_tokens_estimated": 0,
+        "indicative_planner_cost_usd": 0.0
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 1925.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 0,
+        "planner_output_tokens_billable": 0,
+        "browser_payload_bytes": 0,
+        "browser_payload_tokens_estimated": 0,
+        "total_effective_context_load_tokens_estimated": 0,
+        "indicative_planner_cost_usd": 0.0
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__wikipedia_random_article.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__wikipedia_random_article.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__wikipedia_random_article.json"
+      }
+    },
+    {
+      "task": "github_new_issue_page",
+      "site": "github",
+      "url": "https://github.com/microsoft/playwright",
+      "request": "Navigate to the Issues tab of this repository.",
+      "checks": [
+        "/issues"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 60000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 0,
+        "tool_calls_total": 0
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 60000.0,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 0,
+        "tool_calls_total": 0
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 24197.2,
+        "tok_in": 3800,
+        "tok_out": 35,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 3800,
+        "planner_output_tokens_billable": 35,
+        "browser_payload_bytes": 11078,
+        "browser_payload_tokens_estimated": 2765,
+        "total_effective_context_load_tokens_estimated": 6565,
+        "indicative_planner_cost_usd": 0.011925
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__github_new_issue_page.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__github_new_issue_page.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__github_new_issue_page.json"
+      }
+    },
+    {
+      "task": "hackernews_newest",
+      "site": "news",
+      "url": "https://news.ycombinator.com/",
+      "request": "Navigate to the 'new' submissions page.",
+      "checks": [
+        "/newest",
+        "newest"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30927.9,
+        "tok_in": 36126,
+        "tok_out": 218,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 36126,
+        "planner_output_tokens_billable": 218,
+        "browser_payload_bytes": 90953,
+        "browser_payload_tokens_estimated": 22666,
+        "total_effective_context_load_tokens_estimated": 58792,
+        "indicative_planner_cost_usd": 0.111648
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 1589.9,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 0,
+        "planner_output_tokens_billable": 0,
+        "browser_payload_bytes": 0,
+        "browser_payload_tokens_estimated": 0,
+        "total_effective_context_load_tokens_estimated": 0,
+        "indicative_planner_cost_usd": 0.0
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 44369.4,
+        "tok_in": 2639,
+        "tok_out": 42,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 2639,
+        "planner_output_tokens_billable": 42,
+        "browser_payload_bytes": 4912,
+        "browser_payload_tokens_estimated": 1231,
+        "total_effective_context_load_tokens_estimated": 3870,
+        "indicative_planner_cost_usd": 0.008547
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__hackernews_newest.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__hackernews_newest.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__hackernews_newest.json"
+      }
+    },
+    {
+      "task": "imdb_top_movies",
+      "site": "imdb",
+      "url": "https://www.imdb.com/",
+      "request": "Navigate to the Top 250 Movies chart.",
+      "checks": [
+        "chart/top",
+        "top-250"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 4029.9,
+        "tok_in": 159,
+        "tok_out": 29,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 159,
+        "planner_output_tokens_billable": 29,
+        "browser_payload_bytes": 397,
+        "browser_payload_tokens_estimated": 100,
+        "total_effective_context_load_tokens_estimated": 259,
+        "indicative_planner_cost_usd": 0.000912
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 16687.6,
+        "tok_in": 10645,
+        "tok_out": 116,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 8,
+        "tool_calls_total": 8,
+        "planner_input_tokens_billable": 10645,
+        "planner_output_tokens_billable": 116,
+        "browser_payload_bytes": 32121,
+        "browser_payload_tokens_estimated": 8031,
+        "total_effective_context_load_tokens_estimated": 18676,
+        "indicative_planner_cost_usd": 0.033675
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 44308.7,
+        "tok_in": 3245,
+        "tok_out": 53,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 3245,
+        "planner_output_tokens_billable": 53,
+        "browser_payload_bytes": 7991,
+        "browser_payload_tokens_estimated": 2000,
+        "total_effective_context_load_tokens_estimated": 5245,
+        "indicative_planner_cost_usd": 0.01053
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__imdb_top_movies.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__imdb_top_movies.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__imdb_top_movies.json"
+      }
+    },
+    {
+      "task": "mdn_css_grid",
+      "site": "developer",
+      "url": "https://developer.mozilla.org/en-US/",
+      "request": "Search MDN for 'CSS Grid' and open the CSS Grid Layout guide.",
+      "checks": [
+        "CSS_grid",
+        "css_grid",
+        "CSS_Grid",
+        "grid"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 31489.3,
+        "tok_in": 31143,
+        "tok_out": 245,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 31143,
+        "planner_output_tokens_billable": 245,
+        "browser_payload_bytes": 87661,
+        "browser_payload_tokens_estimated": 21829,
+        "total_effective_context_load_tokens_estimated": 52972,
+        "indicative_planner_cost_usd": 0.097104
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 9676.2,
+        "tok_in": 7902,
+        "tok_out": 76,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 7902,
+        "planner_output_tokens_billable": 76,
+        "browser_payload_bytes": 20870,
+        "browser_payload_tokens_estimated": 5219,
+        "total_effective_context_load_tokens_estimated": 13121,
+        "indicative_planner_cost_usd": 0.024846
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 39893.7,
+        "tok_in": 2924,
+        "tok_out": 40,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 2924,
+        "planner_output_tokens_billable": 40,
+        "browser_payload_bytes": 6313,
+        "browser_payload_tokens_estimated": 1581,
+        "total_effective_context_load_tokens_estimated": 4505,
+        "indicative_planner_cost_usd": 0.009372
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__mdn_css_grid.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__mdn_css_grid.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__mdn_css_grid.json"
+      }
+    },
+    {
+      "task": "python_docs_asyncio",
+      "site": "docs",
+      "url": "https://docs.python.org/3/",
+      "request": "Navigate to the asyncio library documentation.",
+      "checks": [
+        "library/asyncio"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 30830.8,
+        "tok_in": 33360,
+        "tok_out": 219,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 33360,
+        "planner_output_tokens_billable": 219,
+        "browser_payload_bytes": 84122,
+        "browser_payload_tokens_estimated": 20887,
+        "total_effective_context_load_tokens_estimated": 54247,
+        "indicative_planner_cost_usd": 0.103365
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 18740.9,
+        "tok_in": 14867,
+        "tok_out": 128,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 10,
+        "tool_calls_total": 10,
+        "planner_input_tokens_billable": 14867,
+        "planner_output_tokens_billable": 128,
+        "browser_payload_bytes": 43137,
+        "browser_payload_tokens_estimated": 10730,
+        "total_effective_context_load_tokens_estimated": 25597,
+        "indicative_planner_cost_usd": 0.046521
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 38541.5,
+        "tok_in": 3268,
+        "tok_out": 50,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 3268,
+        "planner_output_tokens_billable": 50,
+        "browser_payload_bytes": 8074,
+        "browser_payload_tokens_estimated": 1997,
+        "total_effective_context_load_tokens_estimated": 5265,
+        "indicative_planner_cost_usd": 0.010554
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__python_docs_asyncio.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__python_docs_asyncio.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__python_docs_asyncio.json"
+      }
+    },
+    {
+      "task": "google_images_search",
+      "site": "google",
+      "url": "https://www.google.com/",
+      "request": "Search for 'northern lights' then switch to the Images tab.",
+      "checks": [
+        "tbm=isch",
+        "udm=2",
+        "/images"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 14844.4,
+        "tok_in": 8198,
+        "tok_out": 129,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 8,
+        "tool_calls_total": 8,
+        "planner_input_tokens_billable": 8198,
+        "planner_output_tokens_billable": 129,
+        "browser_payload_bytes": 22056,
+        "browser_payload_tokens_estimated": 5513,
+        "total_effective_context_load_tokens_estimated": 13711,
+        "indicative_planner_cost_usd": 0.026529
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 10514.2,
+        "tok_in": 4749,
+        "tok_out": 66,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 4749,
+        "planner_output_tokens_billable": 66,
+        "browser_payload_bytes": 13906,
+        "browser_payload_tokens_estimated": 3477,
+        "total_effective_context_load_tokens_estimated": 8226,
+        "indicative_planner_cost_usd": 0.015237
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 24514.5,
+        "tok_in": 3142,
+        "tok_out": 41,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 3142,
+        "planner_output_tokens_billable": 41,
+        "browser_payload_bytes": 7739,
+        "browser_payload_tokens_estimated": 1926,
+        "total_effective_context_load_tokens_estimated": 5068,
+        "indicative_planner_cost_usd": 0.010041
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__google_images_search.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__google_images_search.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__google_images_search.json"
+      }
+    },
+    {
+      "task": "stackoverflow_sort_votes",
+      "site": "stackoverflow",
+      "url": "https://stackoverflow.com/questions",
+      "request": "Sort questions by votes (highest score).",
+      "checks": [
+        "sort=votes",
+        "tab=votes",
+        "sort=score"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 3321.5,
+        "tok_in": 4583,
+        "tok_out": 44,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 4583,
+        "planner_output_tokens_billable": 44,
+        "browser_payload_bytes": 13424,
+        "browser_payload_tokens_estimated": 3356,
+        "total_effective_context_load_tokens_estimated": 7939,
+        "indicative_planner_cost_usd": 0.014409
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 12498.5,
+        "tok_in": 10167,
+        "tok_out": 118,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 10167,
+        "planner_output_tokens_billable": 118,
+        "browser_payload_bytes": 30158,
+        "browser_payload_tokens_estimated": 7541,
+        "total_effective_context_load_tokens_estimated": 17708,
+        "indicative_planner_cost_usd": 0.032271
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 11618.9,
+        "tok_in": 794,
+        "tok_out": 12,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 794,
+        "planner_output_tokens_billable": 12,
+        "browser_payload_bytes": 1715,
+        "browser_payload_tokens_estimated": 429,
+        "total_effective_context_load_tokens_estimated": 1223,
+        "indicative_planner_cost_usd": 0.002562
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__stackoverflow_sort_votes.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__stackoverflow_sort_votes.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__stackoverflow_sort_votes.json"
+      }
+    },
+    {
+      "task": "bbc_cookie_then_news",
+      "site": "bbc",
+      "url": "https://www.bbc.co.uk/",
+      "request": "Dismiss any cookie banner, then navigate to BBC News.",
+      "checks": [
+        "/news"
+      ],
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 5997.9,
+        "tok_in": 5306,
+        "tok_out": 32,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 5306,
+        "planner_output_tokens_billable": 32,
+        "browser_payload_bytes": 15278,
+        "browser_payload_tokens_estimated": 3819,
+        "total_effective_context_load_tokens_estimated": 9125,
+        "indicative_planner_cost_usd": 0.016398
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 1663.1,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 0,
+        "planner_output_tokens_billable": 0,
+        "browser_payload_bytes": 0,
+        "browser_payload_tokens_estimated": 0,
+        "total_effective_context_load_tokens_estimated": 0,
+        "indicative_planner_cost_usd": 0.0
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 6458.9,
+        "tok_in": 380,
+        "tok_out": 6,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 380,
+        "planner_output_tokens_billable": 6,
+        "browser_payload_bytes": 775,
+        "browser_payload_tokens_estimated": 194,
+        "total_effective_context_load_tokens_estimated": 574,
+        "indicative_planner_cost_usd": 0.00123
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__bbc_cookie_then_news.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__bbc_cookie_then_news.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__bbc_cookie_then_news.json"
+      }
+    },
+    {
+      "task": "reddit_cookie_then_popular",
+      "site": "reddit",
+      "url": "https://www.reddit.com/",
+      "request": "Dismiss any cookie/consent prompts and navigate to the Popular feed.",
+      "checks": [
+        "/r/popular",
+        "popular"
+      ],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 3096.4,
+        "tok_in": 4725,
+        "tok_out": 46,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 4725,
+        "planner_output_tokens_billable": 46,
+        "browser_payload_bytes": 11989,
+        "browser_payload_tokens_estimated": 2987,
+        "total_effective_context_load_tokens_estimated": 7712,
+        "indicative_planner_cost_usd": 0.014865
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 11859.7,
+        "tok_in": 10997,
+        "tok_out": 111,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 6,
+        "tool_calls_total": 6,
+        "planner_input_tokens_billable": 10997,
+        "planner_output_tokens_billable": 111,
+        "browser_payload_bytes": 33124,
+        "browser_payload_tokens_estimated": 8271,
+        "total_effective_context_load_tokens_estimated": 19268,
+        "indicative_planner_cost_usd": 0.034656
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 29625.1,
+        "tok_in": 3641,
+        "tok_out": 41,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 3641,
+        "planner_output_tokens_billable": 41,
+        "browser_payload_bytes": 8911,
+        "browser_payload_tokens_estimated": 2215,
+        "total_effective_context_load_tokens_estimated": 5856,
+        "indicative_planner_cost_usd": 0.011538
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__reddit_cookie_then_popular.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__reddit_cookie_then_popular.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__reddit_cookie_then_popular.json"
+      }
+    },
+    {
+      "task": "example_com_click_link",
+      "site": "example",
+      "url": "https://example.com/",
+      "request": "Click the 'More information...' link.",
+      "checks": [
+        "iana.org"
+      ],
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 6535.6,
+        "tok_in": 207,
+        "tok_out": 39,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 207,
+        "planner_output_tokens_billable": 39,
+        "browser_payload_bytes": 576,
+        "browser_payload_tokens_estimated": 144,
+        "total_effective_context_load_tokens_estimated": 351,
+        "indicative_planner_cost_usd": 0.001206
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 1554.6,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 0,
+        "planner_output_tokens_billable": 0,
+        "browser_payload_bytes": 0,
+        "browser_payload_tokens_estimated": 0,
+        "total_effective_context_load_tokens_estimated": 0,
+        "indicative_planner_cost_usd": 0.0
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 4988.3,
+        "tok_in": 178,
+        "tok_out": 6,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 178,
+        "planner_output_tokens_billable": 6,
+        "browser_payload_bytes": 211,
+        "browser_payload_tokens_estimated": 53,
+        "total_effective_context_load_tokens_estimated": 231,
+        "indicative_planner_cost_usd": 0.000624
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__example_com_click_link.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__example_com_click_link.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__example_com_click_link.json"
+      }
+    },
+    {
+      "task": "hackernews_open_first",
+      "site": "news",
+      "url": "https://news.ycombinator.com/",
+      "request": "Open the first story link on the page.",
+      "checks": [],
+      "standard": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 7979.2,
+        "tok_in": 5296,
+        "tok_out": 67,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 4,
+        "tool_calls_total": 4,
+        "planner_input_tokens_billable": 5296,
+        "planner_output_tokens_billable": 67,
+        "browser_payload_bytes": 13249,
+        "browser_payload_tokens_estimated": 3302,
+        "total_effective_context_load_tokens_estimated": 8598,
+        "indicative_planner_cost_usd": 0.016893
+      },
+      "openclaw": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 37133.1,
+        "tok_in": 27567,
+        "tok_out": 259,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 8,
+        "tool_calls_total": 8,
+        "planner_input_tokens_billable": 27567,
+        "planner_output_tokens_billable": 259,
+        "browser_payload_bytes": 78729,
+        "browser_payload_tokens_estimated": 19683,
+        "total_effective_context_load_tokens_estimated": 47250,
+        "indicative_planner_cost_usd": 0.086586
+      },
+      "semantic": {
+        "ok": false,
+        "stuck": true,
+        "speed_ms": 48675.2,
+        "tok_in": 2867,
+        "tok_out": 42,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 15,
+        "tool_calls_total": 15,
+        "planner_input_tokens_billable": 2867,
+        "planner_output_tokens_billable": 42,
+        "browser_payload_bytes": 6255,
+        "browser_payload_tokens_estimated": 1567,
+        "total_effective_context_load_tokens_estimated": 4434,
+        "indicative_planner_cost_usd": 0.009231
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__hackernews_open_first.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__hackernews_open_first.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__hackernews_open_first.json"
+      }
+    },
+    {
+      "task": "wikipedia_main_featured",
+      "site": "en",
+      "url": "https://en.wikipedia.org/wiki/Main_Page",
+      "request": "Click the link to today's featured article.",
+      "checks": [
+        "wiki/"
+      ],
+      "standard": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 1604.8,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 0,
+        "planner_output_tokens_billable": 0,
+        "browser_payload_bytes": 0,
+        "browser_payload_tokens_estimated": 0,
+        "total_effective_context_load_tokens_estimated": 0,
+        "indicative_planner_cost_usd": 0.0
+      },
+      "openclaw": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 1564.1,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 0,
+        "planner_output_tokens_billable": 0,
+        "browser_payload_bytes": 0,
+        "browser_payload_tokens_estimated": 0,
+        "total_effective_context_load_tokens_estimated": 0,
+        "indicative_planner_cost_usd": 0.0
+      },
+      "semantic": {
+        "ok": true,
+        "stuck": false,
+        "speed_ms": 1852.4,
+        "tok_in": 0,
+        "tok_out": 0,
+        "planner_tool_calls": 0,
+        "browser_tool_calls": 2,
+        "tool_calls_total": 2,
+        "planner_input_tokens_billable": 0,
+        "planner_output_tokens_billable": 0,
+        "browser_payload_bytes": 0,
+        "browser_payload_tokens_estimated": 0,
+        "total_effective_context_load_tokens_estimated": 0,
+        "indicative_planner_cost_usd": 0.0
+      },
+      "journals": {
+        "standard": "docs/benchmarks/journals/2026-03-12/standard__wikipedia_main_featured.json",
+        "openclaw": "docs/benchmarks/journals/2026-03-12/openclaw__wikipedia_main_featured.json",
+        "semantic": "docs/benchmarks/journals/2026-03-12/semantic__wikipedia_main_featured.json"
       }
     }
   ]
