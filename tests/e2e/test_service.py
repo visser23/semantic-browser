@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi.testclient import TestClient
 
@@ -79,7 +79,7 @@ class FakeRuntime:
             managed=False,
             attached_kind="page",
             current_url="https://example.com",
-            last_observation_at=datetime.now(tz=timezone.utc),
+            last_observation_at=datetime.now(tz=UTC),
         )
 
     async def export_trace(self, _path: str):
@@ -98,7 +98,10 @@ class FakeSession:
 
 
 def test_service_launch_observe_act_close(monkeypatch):
-    async def fake_launch(headful=True):
+    captured: dict[str, object] = {}
+
+    async def fake_launch(**_kwargs):
+        captured.update(_kwargs)
         return FakeSession()
 
     from semantic_browser import session as session_mod
@@ -109,6 +112,7 @@ def test_service_launch_observe_act_close(monkeypatch):
     client = TestClient(app)
     launched = client.post("/sessions/launch", json={"headful": False})
     assert launched.status_code == 200
+    assert captured.get("profile_mode") == "ephemeral"
     sid = launched.json()["session_id"]
 
     observed = client.post(f"/sessions/{sid}/observe", json={"mode": "summary"})
@@ -126,8 +130,34 @@ def test_service_launch_observe_act_close(monkeypatch):
     assert closed.status_code == 200
 
 
+def test_service_launch_supports_profile_payload(monkeypatch):
+    captured: dict[str, object] = {}
+
+    async def fake_launch(**kwargs):
+        captured.update(kwargs)
+        return FakeSession()
+
+    from semantic_browser import session as session_mod
+
+    monkeypatch.setattr(session_mod.ManagedSession, "launch", fake_launch)
+    app = create_app()
+    client = TestClient(app)
+    launched = client.post(
+        "/sessions/launch",
+        json={
+            "headful": False,
+            "profile_mode": "persistent",
+            "profile_dir": "/tmp/profile",
+            "storage_state_path": None,
+        },
+    )
+    assert launched.status_code == 200
+    assert captured["profile_mode"] == "persistent"
+    assert captured["profile_dir"] == "/tmp/profile"
+
+
 def test_service_requires_token_when_configured(monkeypatch):
-    async def fake_launch(headful=True):
+    async def fake_launch(**_kwargs):
         return FakeSession()
 
     from semantic_browser import session as session_mod

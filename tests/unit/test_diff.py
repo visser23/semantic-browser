@@ -32,6 +32,7 @@ def test_delta_initial():
     current = _obs("https://example.com")
     delta = build_delta(None, current)
     assert delta.changed_values["initial_observation"] is True
+    assert delta.materiality == "minor"
 
 
 def test_delta_navigation():
@@ -39,6 +40,7 @@ def test_delta_navigation():
     curr = _obs("https://b.example.com")
     delta = build_delta(prev, curr)
     assert delta.navigated is True
+    assert delta.materiality in {"moderate", "major"}
 
 
 def test_delta_enabled_disabled():

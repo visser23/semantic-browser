@@ -40,7 +40,11 @@ from semantic_browser import ManagedSession
 from semantic_browser.models import ActionRequest
 
 async def main() -> None:
-    session = await ManagedSession.launch(headful=False)
+    session = await ManagedSession.launch(
+        headful=False,
+        profile_mode="persistent",
+        profile_dir="/path/to/chrome-profile",
+    )
     runtime = session.runtime
     await runtime.navigate("https://example.com")
     obs = await runtime.observe("summary")
@@ -66,7 +70,7 @@ Example requests:
 curl -X POST http://127.0.0.1:8765/sessions/launch \
   -H "Content-Type: application/json" \
   -H "X-API-Token: dev-token" \
-  -d '{"headful": false}'
+  -d '{"headful": false, "profile_mode": "ephemeral"}'
 
 curl -X POST http://127.0.0.1:8765/sessions/<session_id>/observe \
   -H "Content-Type: application/json" \
@@ -79,3 +83,11 @@ curl -X POST http://127.0.0.1:8765/sessions/<session_id>/observe \
 - Missing Playwright: `pip install "semantic-browser[managed]"`
 - Browser launch issues: `semantic-browser install-browser`
 - Weak observations on dynamic pages: retry with `observe full` or `observe debug`
+- Profile lock warning: close other Chrome instances using the same profile directory
+- Use `profile_mode=clone` for safe experimentation with authenticated profiles
+- Migrating from v1.0 launch config: replace `user_data_dir` with `profile_dir` or `storage_state_path`
+
+## Ownership Safety
+
+- Attached sessions do not close external Chrome on normal `close()`.
+- Use `force_close_browser()` only when you explicitly own the attached browser.

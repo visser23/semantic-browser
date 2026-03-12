@@ -2,18 +2,20 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
-
 ObservationMode = Literal["summary", "full", "delta", "debug", "auto"]
 StepStatus = Literal["success", "failed", "blocked", "stale", "invalid", "ambiguous"]
+OwnershipMode = Literal["owned_ephemeral", "owned_persistent_profile", "attached_context", "attached_cdp"]
+DeltaMateriality = Literal["minor", "moderate", "major"]
+StepEffect = Literal["navigation", "state_change", "content_change", "none"]
 
 
 def utc_now() -> datetime:
-    return datetime.now(tz=timezone.utc)
+    return datetime.now(tz=UTC)
 
 
 class WarningNotice(BaseModel):
@@ -139,6 +141,15 @@ class ObservationDelta(BaseModel):
     changed_regions: list[str] = Field(default_factory=list)
     page_identity_changed: bool = False
     navigated: bool = False
+    interaction_state_changes: list[str] = Field(default_factory=list)
+    content_state_changes: list[str] = Field(default_factory=list)
+    workflow_state_changes: list[str] = Field(default_factory=list)
+    reliability_state_changes: list[str] = Field(default_factory=list)
+    classification_state_changes: list[str] = Field(default_factory=list)
+    confidence_drift: float = 0.0
+    semantic_coverage_change: float = 0.0
+    instability_warnings: list[str] = Field(default_factory=list)
+    materiality: DeltaMateriality = "minor"
     notes: list[str] = Field(default_factory=list)
 
 
@@ -193,6 +204,8 @@ class ExecutionResult(BaseModel):
     caused_navigation: bool = False
     caused_modal_change: bool = False
     caused_value_change: bool = False
+    effect: StepEffect = "none"
+    evidence: dict[str, Any] = Field(default_factory=dict)
 
 
 class StepResult(BaseModel):
@@ -208,6 +221,7 @@ class DiagnosticsReport(BaseModel):
     session_id: str
     managed: bool
     attached_kind: str
+    ownership_mode: OwnershipMode = "owned_ephemeral"
     current_url: str
     last_observation_at: datetime | None = None
     trace_events: int = 0

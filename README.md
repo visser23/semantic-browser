@@ -107,6 +107,45 @@ Inside portal:
 
 More examples: `docs/getting_started.md`
 
+## Profile-Aware Runtime Modes
+
+Persistent profiles are first-class in this release. Use them for serious long-running agent tasks where session continuity matters (SSO, cookies, extension state, trust signals).
+
+- `profile_mode=ephemeral`: disposable context, best for stateless tasks.
+- `profile_mode=persistent`: real reusable Chromium profile directory.
+- `profile_mode=clone`: copy profile into temporary sandbox before run.
+
+CLI launch examples:
+
+```bash
+# Ephemeral (default)
+semantic-browser launch --headless
+
+# Persistent profile (recommended agent mode)
+semantic-browser launch --headless --profile-mode persistent --profile-dir "/path/to/chrome-profile"
+
+# Clone mode (safe experimentation)
+semantic-browser launch --headless --profile-mode clone --profile-dir "/path/to/chrome-profile"
+```
+
+Storage state can still be used in ephemeral mode:
+
+```bash
+semantic-browser launch --headless --profile-mode ephemeral --storage-state-path state.json
+```
+
+Note: storage state bootstrap is not equivalent to a real profile.
+
+## Breaking API Change (v1.1+)
+
+Launch config no longer accepts `user_data_dir`.
+
+- removed: `user_data_dir`
+- added: `profile_mode`, `profile_dir`, `storage_state_path`
+
+If you previously passed `user_data_dir` for storage state, migrate to `storage_state_path` in `ephemeral` mode.
+If you intended a true browser profile, use `profile_mode=persistent` with `profile_dir`.
+
 ## Python Usage
 
 ```python
@@ -144,6 +183,17 @@ semantic-browser export-trace --session <id> --out trace.json
 semantic-browser serve --host 127.0.0.1 --port 8765 --api-token dev-token
 ```
 
+## Ownership and Attach Safety
+
+Runtime sessions now carry explicit ownership semantics:
+
+- `owned_ephemeral`: runtime may close browser/context/page.
+- `owned_persistent_profile`: runtime closes browser process only; never deletes profile data.
+- `attached_context`: runtime does not close external browser/context by default.
+- `attached_cdp`: runtime does not close external Chrome by default.
+
+If you explicitly want destructive close behavior in attached modes, use `force_close_browser()`.
+
 ## Service Security Defaults
 
 - Localhost-focused CORS defaults.
@@ -160,6 +210,7 @@ Benchmark numbers are reference harness runs, not universal guarantees.
 ## Open Source Docs
 
 - `docs/getting_started.md`
+- `docs/real_profiles.md`
 - `docs/versioning.md`
 - `docs/publishing.md`
 - `CHANGELOG.md`

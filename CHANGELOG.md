@@ -1,5 +1,31 @@
 # Changelog
 
+## 1.1.0 (Planned)
+
+- Added explicit runtime ownership modes:
+  - `owned_ephemeral`
+  - `owned_persistent_profile`
+  - `attached_context`
+  - `attached_cdp`
+- Refactored close lifecycle semantics:
+  - non-destructive `close()` defaults for attached modes
+  - explicit `force_close_browser()` override
+- Promoted profile handling to first-class launch API:
+  - `profile_mode` (`persistent|clone|ephemeral`)
+  - `profile_dir`
+  - `storage_state_path`
+  - profile health diagnostics (lock/writable/version warnings)
+- Expanded delta semantics with materiality scoring:
+  - interaction/content/workflow/reliability/classification transitions
+  - `delta.materiality = minor|moderate|major`
+- Hardened settle loop and tracing:
+  - layered settle phases with instability classification
+  - enriched trace payloads (effect, evidence, URL history, tab creation)
+- Added docs for real profile workflows:
+  - `docs/real_profiles.md`
+  - updated `README.md` and `docs/getting_started.md`
+- Expanded test coverage and CI gate to include integration tests.
+
 ## 1.0.0 (Alpha) - 2026-03-12
 
 - First open-source alpha release.

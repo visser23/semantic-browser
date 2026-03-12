@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
 from pydantic import BaseModel
 
 from semantic_browser.models import ActionRequest
@@ -9,6 +11,9 @@ from semantic_browser.models import ActionRequest
 
 class LaunchRequest(BaseModel):
     headful: bool = True
+    profile_mode: Literal["persistent", "clone", "ephemeral"] = "ephemeral"
+    profile_dir: str | None = None
+    storage_state_path: str | None = None
 
 
 class AttachRequest(BaseModel):

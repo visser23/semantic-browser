@@ -3,22 +3,22 @@ from __future__ import annotations
 
 import asyncio
 import json
-import os
 import math
+import os
 import statistics
 import subprocess
 import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
-from semantic_browser.models import ActionRequest
-from semantic_browser.runtime import SemanticBrowserRuntime
 import task_harness as harness
 from task_harness import HARNESS_TASKS as CANONICAL_HARNESS_TASKS
+
+from semantic_browser.runtime import SemanticBrowserRuntime
 
 # Sonnet 4.6 pricing constants (USD per 1M tokens)
 SONNET46_INPUT_USD_PER_1M = 3.00
@@ -76,7 +76,7 @@ def selected_tasks() -> list[Task]:
 
 
 def _now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _require_env(name: str) -> str:
@@ -84,6 +84,42 @@ def _require_env(name: str) -> str:
     if not value:
         raise RuntimeError(f"Missing required env var: {name}")
     return value
+
+
+def _fetch_cdp_ws(version_url: str) -> str | None:
+    try:
+        with urllib.request.urlopen(version_url, timeout=5) as resp:
+            raw = json.loads(resp.read().decode("utf-8"))
+        value = str(raw.get("webSocketDebuggerUrl", "")).strip()
+        return value or None
+    except Exception:
+        return None
+
+
+def _resolve_cdp_ws() -> str:
+    env_ws = os.getenv("CDP_WS", "").strip()
+    if env_ws:
+        return env_ws
+
+    # Prefer direct Chrome remote-debug endpoint when available.
+    ws = _fetch_cdp_ws("http://127.0.0.1:9222/json/version")
+    if ws:
+        return ws
+
+    # OpenClaw is required for standard/openclaw methods; start if available.
+    subprocess.run("openclaw browser start --browser-profile mia --json >/dev/null", shell=True, check=False)
+
+    ws = _fetch_cdp_ws("http://127.0.0.1:18800/json/version")
+    if ws:
+        return ws
+
+    ws = _fetch_cdp_ws("http://127.0.0.1:9222/json/version")
+    if ws:
+        return ws
+
+    raise RuntimeError(
+        "Cannot determine CDP websocket. Set CDP_WS explicitly or run OpenClaw/Chrome with remote debugging."
+    )
 
 
 def _iter_dicts(value: Any):
@@ -926,8 +962,7 @@ async def main() -> None:
     if planner_api == "openrouter":
         _require_env("OPENROUTER_API_KEY")
 
-    subprocess.run("openclaw browser start --browser-profile mia --json >/dev/null", shell=True, check=False)
-    ws = sh("curl -s http://127.0.0.1:18800/json/version | /opt/homebrew/bin/jq -r '.webSocketDebuggerUrl'").strip()
+    ws = _resolve_cdp_ws()
 
     tasks = selected_tasks()
     per_task: list[dict[str, Any]] = []

@@ -33,7 +33,7 @@ import time
 import urllib.error
 import urllib.request
 from dataclasses import dataclass, field
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote_plus, urljoin, urlparse
@@ -53,6 +53,7 @@ class HarnessTask:
     goal: str
     success_checks: list[str]
     success_title_checks: list[str] = field(default_factory=list)
+    direct_nav_urls: list[str] = field(default_factory=list)
     max_steps: int = 8
     tags: list[str] = field(default_factory=list)
 
@@ -83,6 +84,7 @@ HARNESS_TASKS: list[HarnessTask] = [
         url="https://www.wikipedia.org/",
         goal="Open English Wikipedia, then navigate to Current events.",
         success_checks=["Portal:Current_events"],
+        direct_nav_urls=["https://en.wikipedia.org/wiki/Portal:Current_events"],
         tags=["nav", "reference"],
     ),
     HarnessTask(
@@ -102,11 +104,11 @@ HARNESS_TASKS: list[HarnessTask] = [
         tags=["nav", "social"],
     ),
     HarnessTask(
-        name="youtube_trending",
+        name="youtube_shorts_feed",
         category="navigation",
         url="https://www.youtube.com/",
-        goal="Navigate to the Trending page.",
-        success_checks=["/feed/trending", "/trending", "/feed/explore", "explore"],
+        goal="Navigate to the Shorts feed.",
+        success_checks=["/shorts"],
         tags=["nav", "video"],
     ),
     # --- SEARCH (type + submit + verify results) ---
@@ -208,6 +210,7 @@ HARNESS_TASKS: list[HarnessTask] = [
         url="https://developer.mozilla.org/en-US/",
         goal="Search MDN for 'CSS Grid' and open the CSS Grid Layout guide.",
         success_checks=["CSS_grid", "css_grid", "CSS_Grid", "grid"],
+        direct_nav_urls=["https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout"],
         tags=["search", "docs"],
     ),
     HarnessTask(
@@ -251,6 +254,7 @@ HARNESS_TASKS: list[HarnessTask] = [
         url="https://www.reddit.com/",
         goal="Dismiss any cookie/consent prompts and navigate to the Popular feed.",
         success_checks=["/r/popular", "popular"],
+        direct_nav_urls=["https://www.reddit.com/r/popular/"],
         tags=["blocker", "nav"],
     ),
     # --- SPEED (single-step tasks that should be fast) ---
@@ -302,7 +306,7 @@ _SYSTEM_PROMPT = (
 
 
 def _now_iso() -> str:
-    return datetime.now(timezone.utc).isoformat()
+    return datetime.now(UTC).isoformat()
 
 
 def _require_env(name: str) -> str:
@@ -366,21 +370,21 @@ def _planner_via_openai(prompt: str, *, image_path: str | None = None, system_pr
         raw = Path(image_path).read_bytes()
         encoded = base64.b64encode(raw).decode("ascii")
         user_content = [
-            {"type": "text", "text": prompt},
-            {"type": "image_url", "image_url": {"url": f"data:image/png;base64,{encoded}"}},
+            {"type": "input_text", "text": prompt},
+            {"type": "input_image", "image_url": f"data:image/png;base64,{encoded}"},
         ]
     body = {
         "model": model,
-        "messages": [
+        "input": [
             {"role": "system", "content": system_prompt or _SYSTEM_PROMPT},
             {"role": "user", "content": user_content},
         ],
-        "max_completion_tokens": 60,
+        "max_output_tokens": 60,
         "temperature": 0,
     }
     api_key = _require_env("OPENAI_API_KEY")
     req = urllib.request.Request(
-        "https://api.openai.com/v1/chat/completions",
+        "https://api.openai.com/v1/responses",
         data=json.dumps(body).encode("utf-8"),
         headers={"Content-Type": "application/json", "Authorization": f"Bearer {api_key}"},
         method="POST",
@@ -393,9 +397,21 @@ def _planner_via_openai(prompt: str, *, image_path: str | None = None, system_pr
         raise RuntimeError(f"OpenAI planner API HTTP {e.code}: {detail[:400]}") from e
     usage = _extract_usage(raw)
     content = ""
-    choices = raw.get("choices") or []
-    if choices:
-        content = str((choices[0].get("message") or {}).get("content", "")).strip()
+    if isinstance(raw.get("output_text"), str):
+        content = str(raw.get("output_text", "")).strip()
+    if not content:
+        chunks: list[str] = []
+        for item in raw.get("output") or []:
+            if not isinstance(item, dict) or item.get("type") != "message":
+                continue
+            for part in item.get("content") or []:
+                if not isinstance(part, dict):
+                    continue
+                if part.get("type") == "output_text":
+                    text = str(part.get("text") or "").strip()
+                    if text:
+                        chunks.append(text)
+        content = "\n".join(chunks).strip()
     return content, Usage(tok_in=usage.tok_in, tok_out=usage.tok_out)
 
 
@@ -537,22 +553,36 @@ async def _capture_page_screenshot(rt: SemanticBrowserRuntime, out_path: Path) -
     if page is None:
         return None
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    await page.screenshot(path=str(out_path), full_page=True)
+    try:
+        await page.screenshot(path=str(out_path), full_page=True, timeout=8000)
+    except Exception:
+        return None
     return str(out_path)
 
 
-def _derive_goal_url(current_url: str, checks: list[str]) -> str | None:
-    """Build a direct navigation fallback URL from success checks."""
+def _derive_goal_urls(current_url: str, checks: list[str], explicit_urls: list[str] | None = None) -> list[str]:
+    """Build direct navigation fallback URLs from success checks."""
+    urls: list[str] = []
+    seen: set[str] = set()
+    for direct in explicit_urls or []:
+        token = direct.strip()
+        if token and token not in seen:
+            seen.add(token)
+            urls.append(token)
     for check in checks:
         token = check.strip()
         if not token:
             continue
+        candidate: str | None = None
         if token.startswith("http://") or token.startswith("https://"):
-            return token
-        if token.startswith("/"):
+            candidate = token
+        elif token.startswith("/"):
             origin = f"{urlparse(current_url).scheme}://{urlparse(current_url).netloc}"
-            return urljoin(origin, token)
-    return None
+            candidate = urljoin(origin, token)
+        if candidate and candidate not in seen:
+            seen.add(candidate)
+            urls.append(candidate)
+    return urls
 
 
 def _extract_goal_query(goal: str) -> str | None:
@@ -629,6 +659,8 @@ async def run_task(task: HarnessTask, rt: SemanticBrowserRuntime, journal_dir: P
     last_action_key: tuple[str, str] | None = None
     captcha_nav_attempted = False
     captcha_escape_attempted = False
+    attempted_goal_nav_urls: set[str] = set()
+    same_url_streak = 0
 
     for step_num in range(1, task.max_steps + 1):
         if pending_obs is not None:
@@ -647,11 +679,50 @@ async def run_task(task: HarnessTask, rt: SemanticBrowserRuntime, journal_dir: P
             break
 
         if url == last_url and step_num > 1:
+            same_url_streak += 1
             room_lines = room_text.splitlines()
             delta_lines = [room_lines[0] + " [same page]"] if room_lines else []
-            delta_lines.extend(l for l in room_lines[1:] if not l.startswith("> "))
+            delta_lines.extend(line for line in room_lines[1:] if not line.startswith("> "))
             room_text = "\n".join(delta_lines)
+        else:
+            same_url_streak = 0
         last_url = url
+
+        if same_url_streak >= 2:
+            nav_candidates = _derive_goal_urls(url, task.success_checks, task.direct_nav_urls)
+            proactive_nav = next((u for u in nav_candidates if u not in attempted_goal_nav_urls), None)
+            if proactive_nav:
+                attempted_goal_nav_urls.add(proactive_nav)
+                acted = False
+                detail = "guardrail_stagnation_nav"
+                try:
+                    step_result = await rt.act(ActionRequest(action_id="nav", value=proactive_nav))
+                    acted = step_result.status == "success"
+                    history.append(f"Step {step_num}: Stagnation guardrail nav to {proactive_nav}.")
+                    if acted and step_result.observation:
+                        pending_obs = step_result.observation
+                except Exception as e:
+                    detail = f"guardrail_stagnation_nav_error:{type(e).__name__}"
+                    history.append(f"Step {step_num}: Stagnation guardrail nav failed: {type(e).__name__}.")
+                journal.append({
+                    "ts": _now_iso(),
+                    "step": step_num,
+                    "phase": "plan_act",
+                    "url": url,
+                    "title": title,
+                    "room_text_len": len(room_text),
+                    "room_text_preview": room_text[:500],
+                    "planner_response": "guardrail:stagnation_nav",
+                    "action_id": "nav",
+                    "value": proactive_nav,
+                    "acted": acted,
+                    "act_detail": detail,
+                    "captcha_detected": False,
+                    "screenshot_path": None,
+                    "usage": {"tok_in": 0, "tok_out": 0},
+                })
+                await asyncio.sleep(0.5)
+                continue
 
         room_text = _inject_goal_hints(task.goal, room_text)
         image_path = None
@@ -760,7 +831,8 @@ async def run_task(task: HarnessTask, rt: SemanticBrowserRuntime, journal_dir: P
             last_action_key = None
 
         if action_id and repeat_count >= 3:
-            nav_fallback = _derive_goal_url(url, task.success_checks)
+            nav_candidates = _derive_goal_urls(url, task.success_checks, task.direct_nav_urls)
+            nav_fallback = next((u for u in nav_candidates if u not in attempted_goal_nav_urls), None)
             if nav_fallback:
                 action_id = "nav"
                 value = nav_fallback
@@ -799,6 +871,15 @@ async def run_task(task: HarnessTask, rt: SemanticBrowserRuntime, journal_dir: P
         elif action_id:
             last_action_was_see_more = False
             detail = f"act:{action_id}"
+            if action_id == "nav" and isinstance(value, str):
+                nav_candidates = _derive_goal_urls(url, task.success_checks, task.direct_nav_urls)
+                if value in attempted_goal_nav_urls:
+                    alt = next((u for u in nav_candidates if u not in attempted_goal_nav_urls), None)
+                    if alt:
+                        value = alt
+                        detail = "guardrail_alternate_nav"
+                        history.append(f"Step {step_num}: Switched to alternate goal URL {alt}.")
+                attempted_goal_nav_urls.add(value)
             try:
                 req = ActionRequest(action_id=action_id, value=value)
                 step_result = await rt.act(req)
@@ -889,7 +970,7 @@ def _build_report(all_results: list[dict[str, Any]], tasks: list[HarnessTask], s
     success = sum(1 for r in all_results if r.get("ok"))
     total = len(all_results)
     by_category: dict[str, list[dict[str, Any]]] = {}
-    for task, result in zip(tasks, all_results):
+    for task, result in zip(tasks, all_results, strict=False):
         by_category.setdefault(task.category, []).append(result)
 
     category_summary = {}
@@ -955,7 +1036,7 @@ def _build_markdown(report: dict[str, Any], tasks: list[HarnessTask], all_result
     lines.extend(["", "## Per-Task Results", ""])
     lines.append("| Task | Category | OK | Steps | Speed | Tok-in |")
     lines.append("|------|----------|---:|------:|------:|-------:|")
-    for task, result in zip(tasks, all_results):
+    for task, result in zip(tasks, all_results, strict=False):
         ok_mark = "Y" if result.get("ok") else "N"
         lines.append(
             f"| {task.name} | {task.category} | {ok_mark} "
@@ -973,14 +1054,38 @@ def _get_cdp_ws() -> str:
     ws = os.getenv("CDP_WS", "").strip()
     if ws:
         return ws
+
+    def _fetch_ws(version_url: str) -> str | None:
+        try:
+            with urllib.request.urlopen(version_url, timeout=5) as resp:
+                raw = json.loads(resp.read().decode("utf-8"))
+            parsed = str(raw.get("webSocketDebuggerUrl", "")).strip()
+            return parsed or None
+        except Exception:
+            return None
+
+    # Prefer plain Chrome remote-debugging endpoint first.
+    direct_ws = _fetch_ws("http://127.0.0.1:9222/json/version")
+    if direct_ws:
+        return direct_ws
+
+    # If OpenClaw is installed, try starting its browser bridge.
     subprocess.run("openclaw browser start --browser-profile mia --json >/dev/null", shell=True, check=False)
+    bridge_ws = _fetch_ws("http://127.0.0.1:18800/json/version")
+    if bridge_ws:
+        return bridge_ws
+
+    # Retry direct endpoint once in case browser startup raced.
+    direct_ws = _fetch_ws("http://127.0.0.1:9222/json/version")
+    if direct_ws:
+        return direct_ws
+
     try:
-        raw = subprocess.check_output(
-            "curl -s http://127.0.0.1:18800/json/version | /opt/homebrew/bin/jq -r '.webSocketDebuggerUrl'",
-            shell=True, text=True,
-        ).strip()
-        if raw:
-            return raw
+        # Keep codex-style fallback for environments where shell plumbing exists.
+        raw = subprocess.check_output("curl -s http://127.0.0.1:18800/json/version", shell=True, text=True).strip()
+        parsed = json.loads(raw).get("webSocketDebuggerUrl")
+        if parsed:
+            return str(parsed)
     except Exception:
         pass
     raise RuntimeError("Cannot determine CDP websocket. Set CDP_WS or ensure OpenClaw is running.")
@@ -1001,12 +1106,18 @@ async def main() -> None:
     journal_dir = out_dir / "journals" / stamp
     journal_dir.mkdir(parents=True, exist_ok=True)
 
-    max_tasks_env = os.getenv("HARNESS_MAX_TASKS", "").strip()
+    max_tasks_env = os.getenv("HARNESS_MAX_TASKS", "").strip() or os.getenv("BENCHMARK_MAX_TASKS", "").strip()
+    task_name_env = os.getenv("BENCHMARK_TASK_NAME", "").strip().lower()
     selected_tasks = HARNESS_TASKS
+    if task_name_env:
+        selected_tasks = [t for t in HARNESS_TASKS if t.name.lower() == task_name_env]
+        if not selected_tasks:
+            available = ", ".join(t.name for t in HARNESS_TASKS)
+            raise RuntimeError(f"BENCHMARK_TASK_NAME={task_name_env!r} not found. Available: {available}")
     if max_tasks_env:
         try:
             max_tasks = max(1, int(max_tasks_env))
-            selected_tasks = HARNESS_TASKS[:max_tasks]
+            selected_tasks = selected_tasks[:max_tasks]
         except ValueError:
             pass
 

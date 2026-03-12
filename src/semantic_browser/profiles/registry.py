@@ -1,5 +1,10 @@
+"""Profile registry lookup."""
+
+from __future__ import annotations
+
 from semantic_browser.profiles.base import SiteProfile
 from semantic_browser.profiles.generic import GENERIC_PROFILE
+
 
 class ProfileRegistry:
     def __init__(self, profiles: list[SiteProfile] | None = None) -> None:

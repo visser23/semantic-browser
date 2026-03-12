@@ -23,6 +23,10 @@ _settings = load_service_settings()
 _registry = SessionRegistry(session_ttl_seconds=_settings.session_ttl_seconds)
 
 
+async def shutdown_registry() -> None:
+    await _registry.close_all()
+
+
 def _require_token(x_api_token: str | None = Header(default=None, alias="X-API-Token")) -> None:
     if _settings.auth_enabled and x_api_token != _settings.api_token:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="unauthorized")
@@ -31,7 +35,12 @@ def _require_token(x_api_token: str | None = Header(default=None, alias="X-API-T
 @router.post("/sessions/launch")
 async def launch_session(req: LaunchRequest, _: None = Depends(_require_token)):
     await _registry.cleanup_expired()
-    session = await ManagedSession.launch(headful=req.headful)
+    session = await ManagedSession.launch(
+        headful=req.headful,
+        profile_mode=req.profile_mode,
+        profile_dir=req.profile_dir,
+        storage_state_path=req.storage_state_path,
+    )
     sid = _registry.add_managed(session)
     return {"session_id": sid, "mode": "managed"}
 

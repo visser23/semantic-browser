@@ -63,10 +63,24 @@ def install_browser_cmd():
 
 @click.command("launch")
 @click.option("--headful/--headless", default=True)
+@click.option("--profile-mode", type=click.Choice(["persistent", "clone", "ephemeral"]), default="ephemeral")
+@click.option("--profile-dir", default=None)
+@click.option("--storage-state-path", default=None)
 @click.option("--json-output", is_flag=True, default=False)
-def launch_cmd(headful: bool, json_output: bool):
+def launch_cmd(
+    headful: bool,
+    profile_mode: str,
+    profile_dir: str | None,
+    storage_state_path: str | None,
+    json_output: bool,
+):
     async def _run():
-        session = await ManagedSession.launch(headful=headful)
+        session = await ManagedSession.launch(
+            headful=headful,
+            profile_mode=profile_mode,
+            profile_dir=profile_dir,
+            storage_state_path=storage_state_path,
+        )
         _sessions[session.runtime.session_id] = session
         return {"session_id": session.runtime.session_id}
 

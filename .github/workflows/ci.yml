@@ -28,8 +28,8 @@ jobs:
       - name: Type check
         run: mypy src
 
-      - name: Unit and e2e tests
-        run: pytest tests/unit tests/e2e
+      - name: Unit, integration, and e2e tests
+        run: pytest tests/unit tests/integration tests/e2e
 
       - name: Validate benchmark metadata
         run: python tools/validate_benchmark_manifest.py

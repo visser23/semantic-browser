@@ -2,8 +2,8 @@
 
 from __future__ import annotations
 
-from collections import defaultdict
 import hashlib
+from collections import defaultdict
 from typing import Any
 
 from semantic_browser.models import (

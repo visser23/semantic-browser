@@ -2,7 +2,13 @@ import pytest
 
 from semantic_browser.errors import ActionNotFoundError, ActionStaleError
 from semantic_browser.executor.validation import resolve_action
-from semantic_browser.models import ActionDescriptor, ActionRequest, Observation, PageInfo, PageSummary
+from semantic_browser.models import (
+    ActionDescriptor,
+    ActionRequest,
+    Observation,
+    PageInfo,
+    PageSummary,
+)
 
 
 def _obs() -> Observation:

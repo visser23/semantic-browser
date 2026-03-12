@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 import pytest
 
@@ -23,7 +23,7 @@ async def test_registry_cleanup_expires_idle_sessions():
     assert handle is not None
 
     assert isinstance(handle, SessionHandle)
-    handle.last_accessed_at = datetime.now(tz=timezone.utc) - timedelta(seconds=120)
+    handle.last_accessed_at = datetime.now(tz=UTC) - timedelta(seconds=120)
 
     expired = await registry.cleanup_expired()
     assert sid in expired

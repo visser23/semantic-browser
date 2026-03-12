@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from semantic_browser.config import RedactionConfig
 
-
 SENSITIVE_TOKENS = ("token", "secret", "api key", "auth", "bearer", "cvv", "card")
 
 

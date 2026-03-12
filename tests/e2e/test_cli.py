@@ -79,7 +79,7 @@ def test_cli_doctor_command():
 
 
 def test_cli_launch_observe_act_flow(monkeypatch):
-    async def fake_launch(headful=True):
+    async def fake_launch(**_kwargs):
         return _FakeSession()
 
     from semantic_browser import session as session_mod

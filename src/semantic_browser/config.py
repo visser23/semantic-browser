@@ -4,6 +4,8 @@ from __future__ import annotations
 
 from pydantic import BaseModel, Field
 
+ProfileMode = str
+
 
 class SettleConfig(BaseModel):
     ready_states: list[str] = Field(default_factory=lambda: ["interactive", "complete"])
@@ -11,6 +13,12 @@ class SettleConfig(BaseModel):
     interactable_stable_ms: int = 200
     layout_stable_ms: int = 150
     max_settle_ms: int = 15000
+    nav_stable_hits: int = 2
+    structural_stable_hits: int = 2
+    behavioral_stable_hits: int = 2
+    frame_stable_hits: int = 2
+    settle_profile_fast_ms: int = 1500
+    settle_profile_slow_ms: int = 4000
 
 
 class ExtractionConfig(BaseModel):
@@ -39,3 +47,10 @@ class RuntimeConfig(BaseModel):
     extraction: ExtractionConfig = Field(default_factory=ExtractionConfig)
     redaction: RedactionConfig = Field(default_factory=RedactionConfig)
     telemetry: TelemetryConfig = Field(default_factory=TelemetryConfig)
+
+
+class LaunchConfig(BaseModel):
+    headful: bool = True
+    profile_mode: str = "ephemeral"
+    profile_dir: str | None = None
+    storage_state_path: str | None = None
