@@ -24,7 +24,7 @@ Make browser automation feel less like parsing soup and more like an old BBC Mic
 + 28 more [more]
 ```
 
-The planner replies with one action ID and the runtime executes deterministically.
+The planner replies with one action ID and the runtime executes deterministically. This means less confusion, less hallucination and ultimately significantly less cost.
 
 ## Why this is different (and why it now works)
 
