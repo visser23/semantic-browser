@@ -1,9 +1,7 @@
+# Semantic Browser
 <p align="left">
   <img src="https://github.com/user-attachments/assets/e1c2e51b-103a-4a65-bb2e-b2a243793225" alt="Semantic Browser mascot" width="240" align="right" />
 </p>
-
-# Semantic Browser
-
 Make browser automation feel less like parsing soup and more like an old BBC Micro text adventure.
 
 Turn a live Chromium page into a compact semantic “room” an LLM can reason about.
