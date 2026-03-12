@@ -5,7 +5,6 @@
 Make browser automation feel less like parsing soup and more like an old BBC Micro text adventure.
 
 Turn a live Chromium page into a compact semantic “room” an LLM can reason about.
-<img width="800" height="800" alt="Gemini_Generated_Image_n0t5nrn0t5nrn0t5" src="https://github.com/user-attachments/assets/dac79ee0-6ebb-48b3-a27d-2e339ea16961" />
 
 - Live page → structured room state
 - DOM distilled into meaningful objects, not soup
