@@ -1,10 +1,17 @@
 # Semantic Browser
 
-<img width="512" height="512" alt="Gemini_Generated_Image_n0t5nrn0t5nrn0t5" src="https://github.com/user-attachments/assets/e1c2e51b-103a-4a65-bb2e-b2a243793225" />
+<p align="left">
+  <img src="https://github.com/user-attachments/assets/e1c2e51b-103a-4a65-bb2e-b2a243793225" alt="Semantic Browser mascot" width="180" align="right" />
+</p>
 
 Make browser automation feel less like parsing soup and more like an old BBC Micro text adventure.
 
-This runtime turns a live Chromium page into a compact "room" for an LLM:
+Turn a live Chromium page into a compact semantic “room” an LLM can reason about.
+
+- Live page → structured room state
+- DOM distilled into meaningful objects, not soup
+- Built for agentic browser automation
+- Token-efficient, deterministic, inspectable
 
 ```
 @ BBC News (bbc.co.uk)
