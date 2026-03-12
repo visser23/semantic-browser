@@ -26,6 +26,41 @@ Make browser automation feel less like parsing soup and more like an old BBC Mic
 
 The planner replies with one action ID and the runtime executes deterministically.
 
+## Why this is different (and why it now works)
+
+Other browser tools give the LLM the same data in a different wrapper. Semantic Browser gives it a fundamentally different view.
+
+- **Plain-text room descriptions** - prose, not JSON.
+- **Curated actions first** - top 15 useful actions, then `more` if needed.
+- **Progressive disclosure** - `more` gives full action list without flooding every step.
+- **Tiny action replies** - action IDs, `nav`, `back`, `done`.
+- **Narrative history** - readable previous steps, not noisy machine dump.
+- **Guardrails for reality** - anti-repeat fallback, nav hardening, transient extract retry.
+- **Honest failure mode** - if a site throws anti-bot gates, we say so and show evidence.
+
+#### Cross-method comparator (shared 25-task pack)
+
+| Method | Success rate | Failures | Median speed (ms) | Planner input median (billable) | Planner output median (billable) | Payload token-est median (estimated) | Total effective context median (estimated) | Median browser/runtime calls | Indicative planner cost/request (USD) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Standard browser tooling | 24% (6/25) | 19 | 11,819.8 | 10,118 | 74 | 6,918 | 17,224 | 6.0 | 0.041005 |
+| OpenClaw browser tooling | 72% (18/25) | 7 | 10,514.2 | 6,833 | 66 | 5,219 | 12,078 | 6.0 | 0.022053 |
+| Semantic Browser | 100% (25/25) | 0 | 9,353.3 | 540 | 14 | 310 | 879 | 5.0 | 0.004036 |
+
+This is a dramatic jump in a reference harness run, not a universal guarantee.
+
+The last anti-bot loop in this pack now has a robust recovery path:
+- capture challenge evidence (screenshot),
+- try direct same-origin query route,
+- then use a public read-only fallback endpoint when the primary UI is hard-blocked.
+
+25 tasks across navigation, search, multi-step interaction, resilience, and speed.
+
+If challenge/captcha is detected, the harness captures screenshot evidence and includes it in the LLM call.
+
+Reproducibility artifacts:
+- Protocol: `docs/benchmark_protocol.md`
+- Manifest: `benchmarks/manifest.json`
+
 ## Why Semantic Browser
 
 - Semantic room output instead of DOM/JSON soup.
