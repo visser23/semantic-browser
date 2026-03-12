@@ -30,23 +30,26 @@ Other browser tools give the LLM the same data in a different wrapper. We give i
 - **Guardrails for reality** - anti-repeat fallback, nav hardening, transient extract retry.
 - **Honest failure mode** - if a site throws anti-bot gates, we say so and show evidence.
 
-#### Planner cost summary (full 25-task run)
+#### Cross-method comparator (shared 25-task pack)
 
-| Method | Requests | Total indicative planner cost (USD) | Average/request (USD) |
-|---|---:|---:|---:|
-| Standard browser tooling | 25 | 1.025136 | 0.041005 |
-| OpenClaw browser tooling | 25 | 0.551322 | 0.022053 |
-| Semantic Browser | 25 | 0.154866 | 0.006195 |
-| **Cross-method grand total** | **75** | **1.731324** | **0.023084** |
+| Method | Success rate | Failures | Median speed (ms) | Planner input median (billable) | Planner output median (billable) | Payload token-est median (estimated) | Total effective context median (estimated) | Median browser/runtime calls | Indicative planner cost/request (USD) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Standard browser tooling (OpenClaw PR submission) | 24% (6/25) | 19 | 11,819.8 | 10,118 | 74 | 6,918 | 17,224 | 6.0 | 0.041005 |
+| OpenClaw browser tooling (OpenClaw PR submission) | 72% (18/25) | 7 | 10,514.2 | 6,833 | 66 | 5,219 | 12,078 | 6.0 | 0.022053 |
+| Semantic Browser (latest refresh on same shared pack) | 96% (24/25) | 1 | 8,420.2 | 540 | 15 | 310 | 879 | 3.0 | 0.006738 |
 
-Interpretation:
-- OpenClaw browser tooling gave the best task success in this run, with materially lower planner spend than standard tooling.
-- Semantic Browser had the lowest planner cost by a wide margin, but lower completion than OpenClaw on this corpus/run.
-- Cost labels are planner-billable-only; payload/context metrics are estimated and reported separately.
+What this means in plain English:
+- The comparator pack is now unified: `scripts/actionset_benchmark.py` and `scripts/task_harness.py` both read from `task_harness.HARNESS_TASKS`.
+- OpenClaw submitted rows remain as reported in their PR.
+- The Semantic Browser row above is newly re-run on that same shared pack using `openai:gpt-5.4`.
+- Semantic comparator now uses the same execution loop as harness: `scripts.task_harness.run_task`.
+- Semantic Browser still has the lowest planner spend by a lot; task completion in this comparator loop remains lower than semantic-native loop performance.
 
 Source artefacts:
-- `docs/benchmarks/2026-03-11-actionset-compare.json`
-- `docs/benchmarks/2026-03-11-actionset-compare.md`
+- `docs/benchmarks/2026-03-11-actionset-compare.json` (OpenClaw PR submission)
+- `docs/benchmarks/2026-03-11-actionset-compare.md` (OpenClaw PR submission)
+- `docs/benchmarks/2026-03-12-actionset-semantic-refresh.json` (latest Semantic Browser refresh)
+- `docs/benchmarks/2026-03-12-actionset-semantic-refresh.md` (latest Semantic Browser refresh)
 - `docs/benchmarks/journals/2026-03-12/`
 
 ### Semantic Browser

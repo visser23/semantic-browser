@@ -17,6 +17,8 @@ from typing import Any
 
 from semantic_browser.models import ActionRequest
 from semantic_browser.runtime import SemanticBrowserRuntime
+import task_harness as harness
+from task_harness import HARNESS_TASKS as CANONICAL_HARNESS_TASKS
 
 # Sonnet 4.6 pricing constants (USD per 1M tokens)
 SONNET46_INPUT_USD_PER_1M = 3.00
@@ -30,6 +32,7 @@ class Task:
     url: str
     request: str
     checks: list[str]
+    title_checks: list[str]
     max_steps: int = 7
 
 
@@ -45,40 +48,15 @@ PAYLOAD_CHARS_PER_TOKEN_EST = 4.0
 
 TASKS: list[Task] = [
     Task(
-        name="amazon_deals_electronics",
-        site="amazon",
-        url="https://www.amazon.co.uk/",
-        request="Open Today's Deals, then navigate to Electronics deals.",
-        checks=["/gp/goldbox"],
-    ),
-    Task(
-        name="reddit_popular_askreddit",
-        site="reddit",
-        url="https://www.reddit.com/",
-        request="Open the Popular feed, then open r/AskReddit.",
-        checks=["/r/askreddit"],
-    ),
-    Task(
-        name="youtube_explore_trending",
-        site="youtube",
-        url="https://www.youtube.com/",
-        request="Open Explore, then open Trending.",
-        checks=["/feed/trending"],
-    ),
-    Task(
-        name="bbc_news_technology",
-        site="bbc",
-        url="https://www.bbc.co.uk/",
-        request="Open BBC News, then open the Technology section.",
-        checks=["/news/technology"],
-    ),
-    Task(
-        name="wikipedia_english_current_events",
-        site="wikipedia",
-        url="https://www.wikipedia.org/",
-        request="Open English Wikipedia, then open Current events.",
-        checks=["Portal:Current_events"],
-    ),
+        name=t.name,
+        site=t.category,
+        url=t.url,
+        request=t.goal,
+        checks=list(t.success_checks),
+        title_checks=list(t.success_title_checks),
+        max_steps=t.max_steps,
+    )
+    for t in CANONICAL_HARNESS_TASKS
 ]
 
 
@@ -375,9 +353,12 @@ def open_tab(url: str, stats: dict[str, int] | None = None) -> str:
     return str(opened["targetId"])
 
 
-def _is_complete(url: str, title: str, text: str, checks: list[str]) -> bool:
+def _is_complete(url: str, title: str, text: str, checks: list[str], title_checks: list[str]) -> bool:
     hay = f"{url}\n{title}\n{text}".lower()
-    return any(c.lower() in hay for c in checks)
+    if checks and any(c.lower() in hay for c in checks):
+        return True
+    t = title.lower()
+    return bool(title_checks and any(c.lower() in t for c in title_checks))
 
 
 def _match_index(candidates: list[dict[str, Any]], target: str) -> int | None:
@@ -493,7 +474,7 @@ def standard_method(task: Task) -> tuple[dict[str, Any], list[dict[str, Any]]]:
         ok = False
         for step in range(1, task.max_steps + 1):
             obs = _standard_observe(tid, stats)
-            done = _is_complete(obs.get("url", ""), obs.get("title", ""), obs.get("text", ""), task.checks)
+            done = _is_complete(obs.get("url", ""), obs.get("title", ""), obs.get("text", ""), task.checks, task.title_checks)
             if done:
                 ok = True
                 journal.append({"ts": _now_iso(), "step": step, "phase": "check", "done": True, "url": obs.get("url", "")})
@@ -609,7 +590,7 @@ def openclaw_method(task: Task) -> tuple[dict[str, Any], list[dict[str, Any]]]:
         ok = False
         for step in range(1, task.max_steps + 1):
             obs = _openclaw_observe(tid, stats)
-            done = _is_complete(obs.get("url", ""), obs.get("title", ""), obs.get("text", ""), task.checks)
+            done = _is_complete(obs.get("url", ""), obs.get("title", ""), obs.get("text", ""), task.checks, task.title_checks)
             if done:
                 ok = True
                 journal.append({"ts": _now_iso(), "step": step, "phase": "check", "done": True, "url": obs.get("url", "")})
@@ -821,114 +802,83 @@ def _parse_semantic_response(response: str) -> tuple[str | None, str | None]:
 
 
 async def semantic_method(task: Task, ws: str) -> tuple[dict[str, Any], list[dict[str, Any]]]:
-    t0 = time.perf_counter()
-    tok_in = tok_out = planner_tool_calls = 0
-    browser_payload_bytes = browser_payload_tokens_est = 0
-    history: list[str] = []
-    journal: list[dict[str, Any]] = []
-    runtime_calls = 0
+    bench_journal_dir = Path("docs/benchmarks/journals") / datetime.now().strftime("%Y-%m-%d")
+    bench_journal_dir.mkdir(parents=True, exist_ok=True)
+
+    planner_payload_bytes = 0
+    planner_payload_tokens_est = 0
+    planner_tool_calls = 0
+
+    original_planner_next = harness.planner_next
+
+    def wrapped_planner_next(
+        goal: str,
+        room_text: str,
+        history: list[str],
+        *,
+        image_path: str | None = None,
+        system_prompt: str | None = None,
+    ) -> tuple[str, harness.Usage]:
+        nonlocal planner_payload_bytes, planner_payload_tokens_est, planner_tool_calls
+        prompt = harness._build_prompt(goal, room_text, history)
+        payload_bytes, payload_tokens_est = _estimate_payload_bytes_and_tokens(prompt)
+        planner_payload_bytes += payload_bytes
+        planner_payload_tokens_est += payload_tokens_est
+        response, usage = original_planner_next(
+            goal,
+            room_text,
+            history,
+            image_path=image_path,
+            system_prompt=system_prompt,
+        )
+        planner_tool_calls += int(getattr(usage, "tool_calls", 0) or 0)
+        return response, usage
+
+    harness.planner_next = wrapped_planner_next
     rt = await SemanticBrowserRuntime.from_cdp_endpoint(ws, prefer_non_blank=True)
     try:
-        await rt.navigate(task.url)
-        runtime_calls += 1
-        ok = False
-        for step in range(1, task.max_steps + 1):
-            obs = await rt.observe("auto")
-            runtime_calls += 1
-            room_text = obs.planner.room_text if obs.planner else ""
-            url = obs.page.url
-            title = obs.page.title
-
-            done = _is_complete(url, title, room_text, task.checks)
-            if done:
-                ok = True
-                journal.append({"ts": _now_iso(), "step": step, "phase": "check", "done": True, "url": url})
-                break
-
-            planner_prompt = _semantic_build_prompt(task.request, room_text, history)
-            payload_bytes, payload_tokens_est = _estimate_payload_bytes_and_tokens(planner_prompt)
-            browser_payload_bytes += payload_bytes
-            browser_payload_tokens_est += payload_tokens_est
-            response, usage = _semantic_planner_next_from_prompt(planner_prompt)
-            tok_in += usage.tok_in
-            tok_out += usage.tok_out
-            planner_tool_calls += usage.tool_calls
-
-            action_id, value = _parse_semantic_response(response)
-            acted = False
-            detail = "no_action"
-
-            if action_id == "done":
-                acted = True
-                detail = "planner_done"
-                history.append(f"Step {step}: Declared task complete on {title}.")
-            elif action_id:
-                detail = f"act:{action_id}"
-                try:
-                    req = ActionRequest(action_id=action_id, value=value)
-                    step_result = await rt.act(req)
-                    runtime_calls += 1
-                    acted = step_result.status == "success"
-                    action_label = action_id
-                    matched = next((a for a in obs.available_actions if a.id == action_id), None)
-                    if matched:
-                        action_label = matched.label
-                    if acted:
-                        outcome = f"Navigated to {step_result.observation.page.title}." if step_result.execution.caused_navigation else "Success."
-                        history.append(f"Step {step}: {matched.op if matched else 'acted'} \"{action_label}\". {outcome}")
-                    else:
-                        history.append(f"Step {step}: Tried {action_label} but got {step_result.status}.")
-                except Exception as e:
-                    acted = False
-                    detail = f"act_error:{type(e).__name__}"
-                    history.append(f"Step {step}: Error executing {action_id}: {type(e).__name__}.")
-            else:
-                history.append(f"Step {step}: Planner returned unparseable response.")
-
-            journal.append(
-                {
-                    "ts": _now_iso(),
-                    "step": step,
-                    "phase": "plan_act",
-                    "url": url,
-                    "title": title,
-                    "room_text_len": len(room_text),
-                    "planner_response": response,
-                    "action_id": action_id,
-                    "value": value,
-                    "acted": acted,
-                    "act_detail": detail,
-                    "usage": {
-                        "planner_input_tokens_billable": usage.tok_in,
-                        "planner_output_tokens_billable": usage.tok_out,
-                        "browser_payload_bytes": payload_bytes,
-                        "browser_payload_tokens_estimated": payload_tokens_est,
-                    },
-                }
-            )
-            if action_id == "done":
-                break
-            await asyncio.sleep(0.8)
-        ms = (time.perf_counter() - t0) * 1000
-        browser_tool_calls = runtime_calls
-        return {
-            "ok": ok,
-            "stuck": not ok,
-            "speed_ms": round(ms, 1),
-            "tok_in": tok_in,
-            "tok_out": tok_out,
-            "planner_tool_calls": planner_tool_calls,
-            "browser_tool_calls": browser_tool_calls,
-            "tool_calls_total": planner_tool_calls + browser_tool_calls,
-            "planner_input_tokens_billable": tok_in,
-            "planner_output_tokens_billable": tok_out,
-            "browser_payload_bytes": browser_payload_bytes,
-            "browser_payload_tokens_estimated": browser_payload_tokens_est,
-            "total_effective_context_load_tokens_estimated": tok_in + browser_payload_tokens_est,
-            "indicative_planner_cost_usd": _planner_billable_cost_usd(tok_in, tok_out),
-        }, journal
+        harness_task = harness.HarnessTask(
+            name=task.name,
+            category=task.site,
+            url=task.url,
+            goal=task.request,
+            success_checks=list(task.checks),
+            success_title_checks=list(task.title_checks),
+            max_steps=task.max_steps,
+            tags=[],
+        )
+        result, journal = await harness.run_task(harness_task, rt, bench_journal_dir)
     finally:
+        harness.planner_next = original_planner_next
         await rt.close()
+
+    plan_steps = [j for j in journal if j.get("phase") == "plan_act"]
+    act_calls = 0
+    for step in plan_steps:
+        detail = str(step.get("act_detail", ""))
+        action_id = str(step.get("action_id") or "")
+        if action_id and action_id != "done" and detail != "see_more_blocked":
+            act_calls += 1
+    browser_tool_calls = 1 + len(plan_steps) + act_calls
+
+    tok_in = int(result.get("tok_in", 0) or 0)
+    tok_out = int(result.get("tok_out", 0) or 0)
+    return {
+        "ok": bool(result.get("ok")),
+        "stuck": not bool(result.get("ok")),
+        "speed_ms": float(result.get("speed_ms", 0) or 0),
+        "tok_in": tok_in,
+        "tok_out": tok_out,
+        "planner_tool_calls": planner_tool_calls,
+        "browser_tool_calls": browser_tool_calls,
+        "tool_calls_total": planner_tool_calls + browser_tool_calls,
+        "planner_input_tokens_billable": tok_in,
+        "planner_output_tokens_billable": tok_out,
+        "browser_payload_bytes": planner_payload_bytes,
+        "browser_payload_tokens_estimated": planner_payload_tokens_est,
+        "total_effective_context_load_tokens_estimated": tok_in + planner_payload_tokens_est,
+        "indicative_planner_cost_usd": _planner_billable_cost_usd(tok_in, tok_out),
+    }, journal
 
 
 def summarise(rows: list[dict[str, Any]], key: str) -> dict[str, Any]:
