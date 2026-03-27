@@ -13,6 +13,14 @@ async def resolve_locator(page, action: ActionDescriptor):
     dom_id = (recipe.get("dom_id") or "").strip()
     test_id = (recipe.get("test_id") or "").strip()
     href = (recipe.get("href") or "").strip()
+    css_selector = (recipe.get("css_selector") or "").strip()
+
+    # For custom web components, prefer CSS selector first since they
+    # are not exposed in the accessibility tree (e.g. Paddy Power's <abc-button>).
+    if recipe.get("is_custom_element") and css_selector:
+        return page.locator(css_selector).first
+
+    # Standard ARIA-based resolution chain
     if role in {"button", "link", "textbox", "checkbox", "combobox", "searchbox"} and name:
         try:
             return page.get_by_role(role, name=name).first
@@ -39,5 +47,14 @@ async def resolve_locator(page, action: ActionDescriptor):
         except Exception:
             pass
     if name:
-        return page.get_by_text(name).first
+        try:
+            return page.get_by_text(name).first
+        except Exception:
+            pass
+
+    # CSS selector fallback for custom web components or elements
+    # that failed ARIA-based resolution (e.g. <abc-button class="btn-odds">).
+    if css_selector:
+        return page.locator(css_selector).first
+
     return page.locator("body")

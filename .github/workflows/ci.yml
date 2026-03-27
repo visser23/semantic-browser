@@ -22,6 +22,9 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e ".[full]"
 
+      - name: Install Playwright browsers
+        run: playwright install --with-deps
+
       - name: Lint
         run: ruff check src tests --select F,B
 
@@ -35,4 +38,6 @@ jobs:
         run: python tools/validate_benchmark_manifest.py
 
       - name: Dependency audit
-        run: pip-audit
+        run: pip-audit --ignore-vuln CVE-2026-4539
+        # pygments <=2.19.2 has CVE-2026-4539 (ReDoS in AdlLexer archetype.py).
+        # Fixed on master but no PyPI release yet. Remove once pygments >2.19.2 is released.
