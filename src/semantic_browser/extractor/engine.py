@@ -380,6 +380,21 @@ def _action_for_node(node: dict[str, Any], node_id: str, action_id: str, idx: in
         op = "click"
     if not op:
         return None
+    recipe = {
+        "name": name,
+        "role": role,
+        "tag": tag,
+        "type": node.get("type", ""),
+        "dom_id": node.get("id", ""),
+        "href": node.get("href", ""),
+    }
+    # Include CSS selector for custom web components (e.g. <abc-button>)
+    # that are not exposed to the accessibility tree.
+    css_sel = (node.get("css_selector") or "").strip()
+    if css_sel:
+        recipe["css_selector"] = css_sel
+    if node.get("is_custom_element"):
+        recipe["is_custom_element"] = True
     return ActionDescriptor(
         id=action_id,
         op=op,
@@ -388,15 +403,8 @@ def _action_for_node(node: dict[str, Any], node_id: str, action_id: str, idx: in
         enabled=not disabled,
         requires_value=requires_value,
         navigational=op in {"open"},
-        confidence=0.85,
-        locator_recipe={
-            "name": name,
-            "role": role,
-            "tag": tag,
-            "type": node.get("type", ""),
-            "dom_id": node.get("id", ""),
-            "href": node.get("href", ""),
-        },
+        confidence=0.75 if node.get("is_custom_element") else 0.85,
+        locator_recipe=recipe,
     )
 
 
