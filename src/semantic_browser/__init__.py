@@ -5,7 +5,7 @@ from semantic_browser.models import ActionRequest, Observation, StepResult
 from semantic_browser.runtime import SemanticBrowserRuntime
 from semantic_browser.session import ManagedSession
 
-__version__ = "1.0.0"
+__version__ = "1.2.0"
 
 __all__ = [
     "__version__",

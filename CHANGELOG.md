@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.2.0
+
+- Added CSS selector fallback for custom web components (Paddy Power `<abc-button>` support)
+- Resolved F841 unused variable lint errors in `test_resolver.py`
+- Installed Playwright browsers before test step in CI pipeline
+- Suppressed CVE-2026-4539 in pip-audit (security)
+- Bumped version to 1.2.0
+
 ## 1.1.0
 
 - Added explicit runtime ownership modes:

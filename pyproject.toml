@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "semantic-browser"
-version = "1.1.0"
+version = "1.2.0"
 description = "Deterministic semantic runtime over live Chromium for LLM planners"
 readme = "README.md"
 requires-python = ">=3.11"

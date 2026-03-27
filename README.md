@@ -4,7 +4,7 @@
 </p>
 Semantic Browser turns live Chromium pages into compact semantic "rooms" for LLM planners.
 
-**Release:** [`v1.1.0` (Alpha)](https://github.com/visser23/semantic-browser/releases/tag/v1.1.0)  
+**Release:** [`v1.2.0` (Alpha)](https://github.com/visser23/semantic-browser/releases/tag/v1.2.0)  
 **Latest release tag format:** see `docs/versioning.md`
 
 Make browser automation feel less like parsing soup and more like an old BBC Micro text adventure.
@@ -24,6 +24,15 @@ Make browser automation feel less like parsing soup and more like an old BBC Mic
 ```
 
 The planner replies with one action ID and the runtime executes deterministically. This means less confusion, less hallucination and ultimately significantly less cost.
+
+## What's New in v1.2.0
+
+- **Custom web component support** — CSS selector fallback for shadow-DOM components (e.g. Paddy Power `<abc-button>`). Elements inside custom web components that don't expose standard selectors are now matched via fallback heuristics.
+- **CI fixes** — Playwright browsers installed before test step.
+- **Lint fixes** — Resolved F841 unused variable errors in `test_resolver.py`.
+- **Security** — Suppressed CVE-2026-4539 in pip-audit.
+
+See [CHANGELOG.md](CHANGELOG.md) for full release notes.
 
 ## Why this is different (and why it now works)
 
@@ -81,7 +90,7 @@ pip install --upgrade semantic-browser
 Pin to this release explicitly:
 
 ```bash
-pip install "semantic-browser==1.1.0"
+pip install "semantic-browser==1.2.0"
 ```
 
 Managed mode (recommended first run):
