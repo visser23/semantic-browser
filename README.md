@@ -4,7 +4,7 @@
   <img src="https://github.com/user-attachments/assets/dac79ee0-6ebb-48b3-a27d-2e339ea16961" alt="Semantic Browser mascot" width="240" align="right" />
 </p>
 
-**Version 1.3.1 (Beta)** · [PyPI](https://pypi.org/project/semantic-browser/) · [Changelog](CHANGELOG.md) · [License: MIT](LICENSE)
+**Version 1.3.2 (Beta)** · [PyPI](https://pypi.org/project/semantic-browser/) · [Changelog](CHANGELOG.md) · [License: MIT](LICENSE)
 
 Semantic Browser turns live Chromium pages into compact semantic "rooms" for LLM planners. The planner sees a text-adventure description of the page, picks one action ID, and the runtime executes it deterministically.
 
@@ -159,15 +159,12 @@ semantic-browser export-trace --session <id> --out trace.json
 semantic-browser serve --host 127.0.0.1 --port 8765 --api-token <token>
 ```
 
-## What's New in v1.3.0
+## What's New in v1.3.2
 
-- **Framework-agnostic element discovery** — AngularJS, Vue, Alpine.js, and custom elements discovered automatically.
-- **Fuzzy structural settle** — live-updating pages (odds, tickers, chat) no longer cause timeouts.
-- **Stable fingerprints** — action IDs use DOM id + CSS selector, not pixel position.
-- **Smarter locator resolution** — volatile framework classes stripped from selectors.
-- **Robust modal detection** — three-tier detection with visibility and size checks.
-- **Increased budgets** — 25 curated actions, 2K room budget, 4K max elements.
-- **SPA navigation awareness** — URL changes during settle are handled correctly.
+- **Added `GET /health` endpoint** — unauthenticated liveness probe for orchestrators and watchdogs.
+- **Health payload includes release + runtime signal** — returns `{status, version, active_sessions}`.
+- **Service internals hardened** — endpoint now uses public registry API instead of private field access.
+- **Service docs corrected** — diagnostics endpoint method fixed to `GET` in HTTP reference.
 
 Full details: [CHANGELOG.md](CHANGELOG.md)
 

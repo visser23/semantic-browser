@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.3.2
+
+- Added unauthenticated `GET /health` service endpoint for liveness/readiness probes with
+  `{status, version, active_sessions}` response payload.
+- Improved service internals by exposing `SessionRegistry.active_session_count()` and removing
+  route-level access to private registry fields.
+- Added service health endpoint tests and fixed HTTP endpoint docs (`diagnostics` is `GET`).
+
 ## 1.3.1
 
 - Fixed version mismatch: `__init__.py` now exports `1.3.0` matching `pyproject.toml` and

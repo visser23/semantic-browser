@@ -4,7 +4,7 @@ Semantic Browser uses [Semantic Versioning](https://semver.org/) (SemVer).
 
 ## Current version
 
-**1.3.1** — consistent across `pyproject.toml`, `semantic_browser.__version__`, and README.
+**1.3.2** — consistent across `pyproject.toml`, `semantic_browser.__version__`, and README.
 
 ## Version sources
 
@@ -30,9 +30,9 @@ The README references the current version in the header line. The CHANGELOG reco
 1. Update version in `pyproject.toml` and `__init__.py` (both must match).
 2. Add a CHANGELOG entry for the new version.
 3. Ensure README version header matches.
-4. Tag the release in git: `git tag v1.3.1`
+4. Tag the release in git: `git tag v1.3.2`
 5. Build and publish to PyPI (see `docs/publishing.md`).
-6. Verify: `pip install semantic-browser==1.3.1 && semantic-browser version`
+6. Verify: `pip install semantic-browser==1.3.2 && semantic-browser version`
 
 ## Helper script
 

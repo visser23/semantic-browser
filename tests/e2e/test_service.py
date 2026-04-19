@@ -4,6 +4,7 @@ from datetime import UTC, datetime
 
 from fastapi.testclient import TestClient
 
+from semantic_browser import __version__
 from semantic_browser.models import (
     ActionRequest,
     DiagnosticsReport,
@@ -185,3 +186,29 @@ def test_service_requires_token_when_configured(monkeypatch):
         headers={"X-API-Token": "dev-token"},
     )
     assert authorized.status_code == 200
+
+
+def test_service_health_endpoint_is_unauthenticated_and_reports_status(monkeypatch):
+    monkeypatch.setattr(
+        routes_mod,
+        "_settings",
+        ServiceSettings(
+            api_token="dev-token",
+            allow_origins=["http://127.0.0.1", "http://localhost"],
+            session_ttl_seconds=1800,
+        ),
+    )
+    registry = SessionRegistry(session_ttl_seconds=1800)
+    monkeypatch.setattr(routes_mod, "_registry", registry)
+    registry.add_runtime(FakeRuntime())
+
+    app = create_app()
+    client = TestClient(app)
+    response = client.get("/health")
+
+    assert response.status_code == 200
+    assert response.json() == {
+        "status": "ok",
+        "version": __version__,
+        "active_sessions": 1,
+    }

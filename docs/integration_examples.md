@@ -467,6 +467,7 @@ curl -s -X POST "http://127.0.0.1:8765/sessions/$SESSION/close" \
 
 | Method | Path | Body | Returns |
 |--------|------|------|---------|
+| GET | `/health` | — | `{status, version, active_sessions}` |
 | POST | `/sessions/launch` | `LaunchRequest` | `{session_id}` |
 | POST | `/sessions/attach` | `AttachRequest` | `{session_id}` |
 | POST | `/sessions/{id}/close` | — | `{ok}` |
@@ -477,7 +478,7 @@ curl -s -X POST "http://127.0.0.1:8765/sessions/$SESSION/close" \
 | POST | `/sessions/{id}/back` | — | `StepResult` |
 | POST | `/sessions/{id}/forward` | — | `StepResult` |
 | POST | `/sessions/{id}/reload` | — | `StepResult` |
-| POST | `/sessions/{id}/diagnostics` | — | `DiagnosticsReport` |
+| GET | `/sessions/{id}/diagnostics` | — | `DiagnosticsReport` |
 | POST | `/sessions/{id}/export-trace` | `ExportTraceRequest` | `{path}` |
 
 All endpoints accept an `X-API-Token` header when `SEMANTIC_BROWSER_API_TOKEN` is set.

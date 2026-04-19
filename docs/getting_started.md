@@ -34,7 +34,7 @@ pip install "semantic-browser[full]"
 
 ```bash
 semantic-browser version
-# semantic-browser 1.3.0
+# semantic-browser 1.3.2
 
 semantic-browser doctor
 # ✓ Python 3.11+
@@ -153,6 +153,9 @@ semantic-browser serve --host 127.0.0.1 --port 8765 --api-token dev-token
 
 ```bash
 # Terminal 2: interact via curl
+# Health check (no token required)
+curl -s http://127.0.0.1:8765/health | jq .
+
 # Launch a session
 curl -s -X POST http://127.0.0.1:8765/sessions/launch \
   -H "Content-Type: application/json" \

@@ -25,11 +25,11 @@ _registry = SessionRegistry(session_ttl_seconds=_settings.session_ttl_seconds)
 
 
 @router.get("/health")
-async def health():
+async def health() -> dict[str, str | int]:
     return {
         "status": "ok",
         "version": __version__,
-        "active_sessions": len(_registry._items),
+        "active_sessions": _registry.active_session_count(),
     }
 
 
