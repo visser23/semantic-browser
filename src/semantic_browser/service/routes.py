@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from fastapi import APIRouter, Depends, Header, HTTPException, status
 
+from semantic_browser import __version__
 from semantic_browser.runtime import SemanticBrowserRuntime
 from semantic_browser.service.schemas import (
     ActRequest,
@@ -21,6 +22,15 @@ from semantic_browser.session import ManagedSession
 router = APIRouter()
 _settings = load_service_settings()
 _registry = SessionRegistry(session_ttl_seconds=_settings.session_ttl_seconds)
+
+
+@router.get("/health")
+async def health():
+    return {
+        "status": "ok",
+        "version": __version__,
+        "active_sessions": len(_registry._items),
+    }
 
 
 async def shutdown_registry() -> None:
