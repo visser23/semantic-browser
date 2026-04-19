@@ -81,6 +81,9 @@ class SessionRegistry:
     def pop(self, session_id: str) -> SessionHandle | None:
         return self._items.pop(session_id, None)
 
+    def active_session_count(self) -> int:
+        return len(self._items)
+
     async def close_all(self) -> None:
         items = list(self._items.items())
         self._items.clear()

@@ -28,3 +28,14 @@ async def test_registry_cleanup_expires_idle_sessions():
     expired = await registry.cleanup_expired()
     assert sid in expired
     assert registry.get(sid) is None
+
+
+def test_registry_active_session_count_tracks_add_and_pop():
+    registry = SessionRegistry(session_ttl_seconds=60)
+    runtime = _Runtime()
+
+    sid = registry.add_runtime(runtime)
+    assert registry.active_session_count() == 1
+
+    registry.pop(sid)
+    assert registry.active_session_count() == 0
